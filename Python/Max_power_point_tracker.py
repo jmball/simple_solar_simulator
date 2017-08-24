@@ -44,7 +44,7 @@ filename = args.file_name
 
 # Assign the VISA resource to a variable
 rm = pyvisa.ResourceManager()
-keithley2400 = rm.open_resource('GPIB0::24::INSTR')
+keithley2400 = rm.open_resource('GPIB1::24::INSTR')
 keithley2400.query('*IDN?')
 keithley2400.write('*RST')
 keithley2400.encoding = 'latin-1'
