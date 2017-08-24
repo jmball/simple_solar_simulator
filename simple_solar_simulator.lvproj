@@ -35,9 +35,8 @@
 		<Item Name="j-t_data_to_plot.vi" Type="VI" URL="../SubVIs/j-t_data_to_plot.vi"/>
 		<Item Name="JV Data analysis from master log file.vi" Type="VI" URL="../SubVIs/JV Data analysis from master log file.vi"/>
 		<Item Name="Keithley 24XX.lvlib" Type="Library" URL="/C/Program Files (x86)/National Instruments/LabVIEW 2016/instr.lib/keithley_24xx/Keithley 24XX/Keithley 24XX.lvlib"/>
-		<Item Name="Keithley J-t IIT_v2.vi" Type="VI" URL="../SubVIs/Keithley J-t IIT_v2.vi"/>
-		<Item Name="Keithley J-t List_IIT.vi" Type="VI" URL="../SubVIs/Keithley J-t List_IIT.vi"/>
-		<Item Name="Keithley Max_P List_IIT.vi" Type="VI" URL="../SubVIs/Keithley Max_P List_IIT.vi"/>
+		<Item Name="keithley_j-t_list.vi" Type="VI" URL="../SubVIs/keithley_j-t_list.vi"/>
+		<Item Name="keithley_max_p_list.vi" Type="VI" URL="../SubVIs/keithley_max_p_list.vi"/>
 		<Item Name="keithley_sweep.vi" Type="VI" URL="../SubVIs/keithley_sweep.vi"/>
 		<Item Name="Lamp_power_control.vi" Type="VI" URL="../../J-V Measurement/Prelim/Lamp_power_control.vi"/>
 		<Item Name="load_saved_scan_settings.vi" Type="VI" URL="../SubVIs/load_saved_scan_settings.vi"/>
@@ -72,11 +71,6 @@
 		<Item Name="Update Meas Type to Repeat JV Scan for best.vi" Type="VI" URL="../SubVIs/Update Meas Type to Repeat JV Scan for best.vi"/>
 		<Item Name="upload_details_from_spreadsheet.vi" Type="VI" URL="../SubVIs/upload_details_from_spreadsheet.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
-			<Item Name="instr.lib" Type="Folder">
-				<Item Name="Configure Output.vi" Type="VI" URL="/&lt;instrlib&gt;/keithley_24xx/Keithley 24XX/Public/Configure/Configure Output.vi"/>
-				<Item Name="Read (Single Point).vi" Type="VI" URL="/&lt;instrlib&gt;/keithley_24xx/Keithley 24XX/Public/Data/Read (Single Point).vi"/>
-				<Item Name="Read.vi" Type="VI" URL="/&lt;instrlib&gt;/keithley_24xx/Keithley 24XX/Public/Data/Read.vi"/>
-			</Item>
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="BuildHelpPath.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/BuildHelpPath.vi"/>
 				<Item Name="Check Color Table Size.vi" Type="VI" URL="/&lt;vilib&gt;/picture/jpeg.llb/Check Color Table Size.vi"/>
@@ -157,6 +151,10 @@
 			</Item>
 			<Item Name="Add dark EQE measurement to queue.vi" Type="VI" URL="../SubVIs/Add dark EQE measurement to queue.vi"/>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
+			<Item Name="QuickMux Error Handler.vi" Type="VI" URL="/C/Program Files (x86)/National Instruments/LabVIEW 2016/instr.lib/QuickMux/QuickMux Error Handler.vi"/>
+			<Item Name="QuickMux.lvlib" Type="Library" URL="/C/Program Files (x86)/National Instruments/LabVIEW 2016/instr.lib/QuickMux/QuickMux.lvlib"/>
+			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files (x86)/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
+			<Item Name="set_multiplexor.vi" Type="VI" URL="../SubVIs/set_multiplexor.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="Automated PV Measurement" Type="EXE">
