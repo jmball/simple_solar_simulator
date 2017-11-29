@@ -73,7 +73,6 @@
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="instr.lib" Type="Folder">
 				<Item Name="QuickMux Error Handler.vi" Type="VI" URL="/&lt;instrlib&gt;/QuickMux/QuickMux Error Handler.vi"/>
-				<Item Name="QuickMux.dll" Type="Document" URL="/&lt;instrlib&gt;/QuickMux/QuickMux.dll"/>
 				<Item Name="QuickMux.lvlib" Type="Library" URL="/&lt;instrlib&gt;/QuickMux/QuickMux.lvlib"/>
 			</Item>
 			<Item Name="vi.lib" Type="Folder">
@@ -156,6 +155,8 @@
 			</Item>
 			<Item Name="Add dark EQE measurement to queue.vi" Type="VI" URL="../SubVIs/Add dark EQE measurement to queue.vi"/>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
+			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files (x86)/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
+			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
 			<Item Name="set_multiplexor.vi" Type="VI" URL="../SubVIs/set_multiplexor.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
