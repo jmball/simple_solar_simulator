@@ -45,7 +45,8 @@
 		<Item Name="Login_dialog.vi" Type="VI" URL="../SubVIs/Login_dialog.vi"/>
 		<Item Name="main.vi" Type="VI" URL="../main.vi"/>
 		<Item Name="max_power_data_to_plot.vi" Type="VI" URL="../SubVIs/max_power_data_to_plot.vi"/>
-		<Item Name="measure_current.vi" Type="VI" URL="../SubVIs/measure_current.vi"/>
+		<Item Name="measure_current_keithley-2400.vi" Type="VI" URL="../SubVIs/measure_current_keithley-2400.vi"/>
+		<Item Name="measure_current_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_current_keithley-2450.vi"/>
 		<Item Name="measure_j-t.vi" Type="VI" URL="../SubVIs/measure_j-t.vi"/>
 		<Item Name="measure_j-v.vi" Type="VI" URL="../SubVIs/measure_j-v.vi"/>
 		<Item Name="measure_max_power_stabilisation.vi" Type="VI" URL="../SubVIs/measure_max_power_stabilisation.vi"/>
@@ -73,6 +74,7 @@
 		<Item Name="upload_details_from_spreadsheet.vi" Type="VI" URL="../SubVIs/upload_details_from_spreadsheet.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="instr.lib" Type="Folder">
+				<Item Name="Keithley 2450.lvlib" Type="Library" URL="/&lt;instrlib&gt;/Keithley 2450/Keithley 2450.lvlib"/>
 				<Item Name="QuickMux Error Handler.vi" Type="VI" URL="/&lt;instrlib&gt;/QuickMux/QuickMux Error Handler.vi"/>
 				<Item Name="QuickMux.lvlib" Type="Library" URL="/&lt;instrlib&gt;/QuickMux/QuickMux.lvlib"/>
 			</Item>
@@ -155,6 +157,7 @@
 				<Item Name="Write To Spreadsheet File.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Write To Spreadsheet File.vi"/>
 			</Item>
 			<Item Name="Add dark EQE measurement to queue.vi" Type="VI" URL="../SubVIs/Add dark EQE measurement to queue.vi"/>
+			<Item Name="check_keithley-2450_is_connected.vi" Type="VI" URL="../SubVIs/check_keithley-2450_is_connected.vi"/>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
 			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files (x86)/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
 			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
