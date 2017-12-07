@@ -36,9 +36,10 @@
 		<Item Name="j-t_data_to_plot.vi" Type="VI" URL="../SubVIs/j-t_data_to_plot.vi"/>
 		<Item Name="JV Data analysis from master log file.vi" Type="VI" URL="../SubVIs/JV Data analysis from master log file.vi"/>
 		<Item Name="Keithley 24XX.lvlib" Type="Library" URL="/&lt;instrlib&gt;/Keithley 24XX/Keithley 24XX.lvlib"/>
+		<Item Name="keithley-2400_j-t_list.vi" Type="VI" URL="../SubVIs/keithley-2400_j-t_list.vi"/>
 		<Item Name="keithley-2400_sweep.vi" Type="VI" URL="../SubVIs/keithley-2400_sweep.vi"/>
+		<Item Name="keithley-2450_j-t_list.vi" Type="VI" URL="../SubVIs/keithley-2450_j-t_list.vi"/>
 		<Item Name="keithley-2450_sweep.vi" Type="VI" URL="../SubVIs/keithley-2450_sweep.vi"/>
-		<Item Name="keithley_j-t_list.vi" Type="VI" URL="../SubVIs/keithley_j-t_list.vi"/>
 		<Item Name="keithley_max_p_list.vi" Type="VI" URL="../SubVIs/keithley_max_p_list.vi"/>
 		<Item Name="Lamp_power_control.vi" Type="VI" URL="../../J-V Measurement/Prelim/Lamp_power_control.vi"/>
 		<Item Name="load_saved_scan_settings.vi" Type="VI" URL="../SubVIs/load_saved_scan_settings.vi"/>
@@ -48,7 +49,8 @@
 		<Item Name="max_power_data_to_plot.vi" Type="VI" URL="../SubVIs/max_power_data_to_plot.vi"/>
 		<Item Name="measure_current_keithley-2400.vi" Type="VI" URL="../SubVIs/measure_current_keithley-2400.vi"/>
 		<Item Name="measure_current_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_current_keithley-2450.vi"/>
-		<Item Name="measure_j-t.vi" Type="VI" URL="../SubVIs/measure_j-t.vi"/>
+		<Item Name="measure_j-t_keithley-2400.vi" Type="VI" URL="../SubVIs/measure_j-t_keithley-2400.vi"/>
+		<Item Name="measure_j-t_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_j-t_keithley-2450.vi"/>
 		<Item Name="measure_j-v_keithley-2400.vi" Type="VI" URL="../SubVIs/measure_j-v_keithley-2400.vi"/>
 		<Item Name="measure_j-v_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_j-v_keithley-2450.vi"/>
 		<Item Name="measure_max_power_stabilisation.vi" Type="VI" URL="../SubVIs/measure_max_power_stabilisation.vi"/>
