@@ -26,8 +26,6 @@
 		<Item Name="create_max_power_folder.vi" Type="VI" URL="../SubVIs/create_max_power_folder.vi"/>
 		<Item Name="data_to_plot.vi" Type="VI" URL="../SubVIs/data_to_plot.vi"/>
 		<Item Name="delete_scan_settings.vi" Type="VI" URL="../SubVIs/delete_scan_settings.vi"/>
-		<Item Name="Disable and grey out controls.vi" Type="VI" URL="../../Solar_Cell_Stability/VIs/subvis/Disable and grey out controls.vi"/>
-		<Item Name="Disable-enable scan settgin controls.vi" Type="VI" URL="../../Solar_Cell_Stability/VIs/subvis/Disable-enable scan settgin controls.vi"/>
 		<Item Name="find_best_pixel_from_log.vi" Type="VI" URL="../SubVIs/find_best_pixel_from_log.vi"/>
 		<Item Name="find_v-mp_from_log.vi" Type="VI" URL="../SubVIs/find_v-mp_from_log.vi"/>
 		<Item Name="Generate report control.ctl" Type="VI" URL="../SubVIs/Generate report control.ctl"/>
@@ -163,6 +161,7 @@
 				<Item Name="Write To Spreadsheet File.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Write To Spreadsheet File.vi"/>
 			</Item>
 			<Item Name="Add dark EQE measurement to queue.vi" Type="VI" URL="../SubVIs/Add dark EQE measurement to queue.vi"/>
+			<Item Name="check_keithley-2400_is_connected.vi" Type="VI" URL="../SubVIs/check_keithley-2400_is_connected.vi"/>
 			<Item Name="check_keithley-2450_is_connected.vi" Type="VI" URL="../SubVIs/check_keithley-2450_is_connected.vi"/>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
 			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files (x86)/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
