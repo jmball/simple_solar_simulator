@@ -1,5 +1,7 @@
 import argparse
 
+import numpy as np
+
 import visa
 
 # Parse folder path, file name, and measurement parameters from command line
@@ -7,6 +9,16 @@ import visa
 # python file from the command line, e.g. python example.py "arg1" "arg2".
 # Folder paths must use forward slashes to separate subfolders.
 parser = argparse.ArgumentParser(description='Measure current')
+parser.add_argument(
+    'folder_path',
+    metavar='folder_path',
+    type=str,
+    help='Absolute path to the folder containing max P stabilisation data')
+parser.add_argument(
+    'file_name',
+    metavar='file_name',
+    type=str,
+    help='Name of the file to save the data to')
 parser.add_argument(
     'V_start', metavar='V_start', type=float, help='Start voltage (V)')
 parser.add_argument(
@@ -31,6 +43,8 @@ parser.add_argument(
 args = parser.parse_args()
 
 # Assign argparse arguments to variables
+folderpath = args.folder_path
+filename = args.file_name
 V_start = args.V_start
 V_stop = args.V_stop
 V_step = args.V_step
@@ -131,4 +145,28 @@ scan2 = keithley2450.query(
 keithley2450.write(':TRAC:DEL "scan1"')
 keithley2450.write(':TRAC:DEL "scan2"')
 
-print(scan1, scan2)
+# Convert buffer data to arrays
+scan1_arr = np.array(scan1)
+scan2_arr = np.array(scan1)
+
+# Add J data to arrays
+scan1_arr[:, 3] = scan1_arr[:, 2] / A
+scan2_arr[:, 3] = scan2_arr[:, 2] / A
+
+# Format and save the results
+np.savetxt(
+    folderpath + filename + "_forward",
+    np.transpose(scan1_arr),
+    fmt='%.9f',
+    delimiter='\t',
+    newline='\r\n',
+    header='Time (s)' + '\t' + 'V' + '\t' + 'I (A)' + '\t' + 'J (mA/cm^2)',
+    comments='')
+np.savetxt(
+    folderpath + filename + "_backward",
+    np.transpose(scan2_arr),
+    fmt='%.9f',
+    delimiter='\t',
+    newline='\r\n',
+    header='Time (s)' + '\t' + 'V' + '\t' + 'I (A)' + '\t' + 'J (mA/cm^2)',
+    comments='')
