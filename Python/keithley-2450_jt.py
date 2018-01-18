@@ -22,22 +22,35 @@ parser.add_argument(
     type=str,
     help='Name of the file to save the data to')
 parser.add_argument(
-    'V_start',
-    metavar='V_start',
+    'V_start', metavar='V_start', type=float, help='Start voltage (V)')
+parser.add_argument(
+    'V_stop', metavar='V_stop', type=float, help='Stop voltage (V)')
+parser.add_argument(
+    'V_step', metavar='V_step', type=float, help='Step voltage (V)')
+parser.add_argument(
+    't_step',
+    metavar='t_step',
     type=float,
-    help='Seed voltage for maximum power point tracker (V)')
+    help='Time to hold for each voltage (s)')
+parser.add_argument(
+    'dual', metavar='dual', type=bool, help='Dual sweep (True or False)?')
+parser.add_argument(
+    'inverted',
+    metavar='inverted',
+    type=bool,
+    help='Inverted device structure (True or False)?')
+parser.add_argument(
+    't_settling', metavar='t_settling', type=float, help='Settling delay (ms)')
 parser.add_argument(
     'nplc',
     metavar='nplc',
     type=float,
     help='Integration filter in number of power line cycles (NPLC)')
 parser.add_argument(
-    't_settling', metavar='t_settling', type=float, help='Settling delay (ms)')
-parser.add_argument(
-    't_track',
-    metavar='t_track',
-    type=float,
-    help='Time to track maximum power point for (s)')
+    'condition',
+    metavar='condition',
+    type=str,
+    help='Illumination conditions (light or dark)')
 parser.add_argument('A', metavar='A', type=float, help='Device area (cm^2)')
 parser.add_argument(
     'num_of_suns',
@@ -50,12 +63,24 @@ args = parser.parse_args()
 folderpath = args.folder_path
 filename = args.file_name
 V_start = args.V_start
-A = args.A
-nplc = args.nplc
+V_stop = args.V_stop
+V_step = args.V_step
+t_step = args.t_step
+dual = args.dual
+inverted = args.inverted
 t_settling = args.t_settling
-t_track = args.t_track
+nplc = args.nplc
+condition = args.condition
 suns = args.num_of_suns
-V_range = np.absolute(V_start)
+A = args.A
+points = int(1 + (np.absolute(V_start - V_stop) / V_step))
+V_range = np.max([np.absolute(V_start), np.absolute(V_stop)])
+
+# Make voltage array
+V_arr = np.linspace(V_start, V_stop, points)
+if dual:
+    V_arr_rev = np.flip(V_arr)
+    V_arr = np.concatenate(V_arr, V_arr_rev)
 
 # Set current measurement range to 10 times SQ limit for 0.5 eV
 # bandgap for the given area
@@ -107,34 +132,28 @@ keithley2450.write(':CURR:AZER OFF')
 keithley2450.write(':VOLT:AZER OFF')
 
 
-# Function for tracking maximum power point
-def track_max_power(V, t_track):
-    """Maximum power point stabilizer.
-
-    Holding at a fixed voltage (V), measure the power output for a fixed
-    amount of time (t_track), taking as many measurements as possible.
+def jt_scan(V_arr, t_step, condition):
+    """Measure current as a function of time for a voltage sweep.
 
     Parameters
     ----------
-    V : float
-        Voltage for the maximum power point stabilizer (V)
-    t_track : float
-        Time to track the maximum power point for (s)
+    V_arr : array of float
+        Voltages to stabilise at
+    t_step : float
+        Time to hold each voltage at (s)
+    condition : str
+        Illumination condition (light or dark)
 
     Returns
     -------
     ts : list of float
         Timestamps for every measurement (UTC)
     Vs : list of float
-        Vs (V)
+        Measured Vs (V)
     Is : list of float
-        Is (A)
-    Ps : list of float
-        Ps (W)
+        Measured Is (A)
     Js : list of float
         Current densities (mA / cm^2)
-    PCEs : list of float
-        Power conversion PCEs (%)
     """
 
     # Initialise empty lists for storing data
@@ -142,62 +161,52 @@ def track_max_power(V, t_track):
     Vs = []
     Is = []
     Js = []
-    Ps = []
-    PCEs = []
 
-    # Turn on the Keithley output at V
-    keithley2450.write(':SOUR:VOLT {}'.format(V))
+    if condition == 'light':
+        # Open the shutter of the solar simulator
+        keithley2450.write(':DIG:LINE1:STAT 1')
+
+    # Turn on the Keithley output at zero volts
+    keithley2450.write(':SOUR:VOLT {}'.format(V_arr[0]))
     keithley2450.write('OUTP ON')
 
-    # Start timing
-    t_start = time.time()
+    for V in V_arr:
+        # Set voltage
+        keithley2450.write(':SOUR:VOLT {}'.format(V))
 
-    # Measure at V in the dark for 3s
-    while time.time() - t_start < 3:
-        data = keithley2450.query(':MEAS:CURR? SEC, SOUR, READ')
-        data = data.split(',')
-        data = [float(item) for item in data]
-        ts.append(data[0])
-        Vs.append(data[1])
-        Is.append(data[2])
-        Js.append(data[2] * 1000 / A)
-        Ps.append(data[1] * data[2])
-        PCEs.append(np.absolute(data[1] * data[2] * 1000 / (suns * A)))
+        # Reset step timer
+        t_step_start = time.time()
 
-    # Open the shutter of the solar simulator
-    keithley2450.write(':DIG:LINE1:STAT 1')
+        # Take readings continuously for t_step
+        while time.time() - t_step_start < t_step:
+            data = keithley2450.query(':MEAS:CURR? SEC, SOUR, READ')
+            data = data.split(',')
+            data = [float(item) for item in data]
+            ts.append(data[0])
+            Vs.append(data[1])
+            Is.append(data[2])
+            Js.append(data[2] * 1000 / A)
 
-    # Measure at V in the light for t_track
-    while time.time() - t_start < t_track + 3:
-        data = keithley2450.query(':MEAS:CURR? SEC, SOUR, READ')
-        data = data.split(',')
-        data = [float(item) for item in data]
-        ts.append(data[0])
-        Vs.append(data[1])
-        Is.append(data[2])
-        Js.append(data[2] * 1000 / A)
-        Ps.append(data[1] * data[2])
-        PCEs.append(np.absolute(data[1] * data[2] * 1000 / (suns * A)))
-
-    return ts, Vs, Is, Js, Ps, PCEs
+    return ts, Vs, Is, Js
 
 
 # Manually reset zero reference values
 keithley2450.write(':AZER:ONCE')
 
 # Track max power
-mppt_results = track_max_power(V_start, t_track)
+jt = jt_scan(V_arr, t_step, condition)
 
 # Disable the output
 keithley2450.write('OUTP OFF')
 
-# Close the shutter
-keithley2450.write(':DIG:LINE1:STAT 0')
+if condition == 'light':
+    # Close the shutter
+    keithley2450.write(':DIG:LINE1:STAT 0')
 
 # Format and save the results
 np.savetxt(
     folderpath + filename,
-    np.transpose(np.array(mppt_results)),
+    np.transpose(np.array(jt)),
     fmt='%.9f',
     delimiter='\t',
     newline='\r\n',

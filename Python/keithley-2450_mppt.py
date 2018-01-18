@@ -26,7 +26,6 @@ parser.add_argument(
     metavar='V_start',
     type=float,
     help='Seed voltage for maximum power point tracker (V)')
-parser.add_argument('A', metavar='A', type=float, help='Device area (cm^2)')
 parser.add_argument(
     'nplc',
     metavar='nplc',
@@ -34,7 +33,6 @@ parser.add_argument(
     help='Integration filter in number of power line cycles (NPLC)')
 parser.add_argument(
     't_settling', metavar='t_settling', type=float, help='Settling delay (ms)')
-args = parser.parse_args()
 parser.add_argument(
     't_track',
     metavar='t_track',
@@ -109,7 +107,6 @@ keithley2450.write(':CURR:AZER OFF')
 keithley2450.write(':VOLT:AZER OFF')
 
 
-# Function for tracking maximum power point
 def track_max_power(V_start, t_track):
     """Maximum power point tracker.
 
