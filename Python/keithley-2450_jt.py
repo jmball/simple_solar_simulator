@@ -194,7 +194,7 @@ def jt_scan(V_arr, t_step, condition):
 keithley2450.write(':AZER:ONCE')
 
 # Track max power
-jt = jt_scan(V_arr, t_step, condition)
+jt_data = jt_scan(V_arr, t_step, condition)
 
 # Disable the output
 keithley2450.write('OUTP OFF')
@@ -203,12 +203,33 @@ if condition == 'light':
     # Close the shutter
     keithley2450.write(':DIG:LINE1:STAT 0')
 
+# Convert to numpy array
+jt_data_arr = np.array(
+    [jt_data['ts'], jt_data['Vs'], jt_data['Is'], jt_data['Js']]).T
+
+# Split scan directions
+if V_start < V_stop:
+    jt_data_LH = jt_data_arr[:points, :]
+    jt_data_HL = jt_data_arr[points - 1:, :]
+else:
+    jt_data_HL = jt_data_arr[:points, :]
+    jt_data_LH = jt_data_arr[points - 1:, :]
+
 # Format and save the results
 np.savetxt(
-    folderpath + filename,
-    np.transpose(np.array(jt)),
-    fmt='%.9f',
+    (folderpath + filename).replace('.txt', '_LH.txt'),
+    jt_data_LH,
+    fmt='%.6e',
     delimiter='\t',
     newline='\r\n',
-    header='Time (s)\tV\tI (A)\tJ (mA/cm^2)\tP (W)\tPCE (%)',
+    header='Time (s)\tV\tI (A)\tJ (mA/cm^2)',
+    comments='')
+
+np.savetxt(
+    (folderpath + filename).replace('.txt', '_HL.txt'),
+    jt_data_HL,
+    fmt='%.6e',
+    delimiter='\t',
+    newline='\r\n',
+    header='Time (s)\tV\tI (A)\tJ (mA/cm^2)',
     comments='')

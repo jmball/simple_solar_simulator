@@ -188,7 +188,7 @@ pce_LH = pmax_LH * 100 / pin
 
 # Save results to text files
 np.savetxt(
-    folderpath + filename + "_LH.txt",
+    (folderpath + filename).replace('.txt', '_LH.txt'),
     iv_data_LH,
     fmt='%.6e',
     delimiter='\t',
@@ -209,7 +209,7 @@ np.savetxt(
                                             A, suns),
     comments='')
 np.savetxt(
-    folderpath + filename + "_HL.txt",
+    (folderpath + filename).replace('.txt', '_HL.txt'),
     iv_data_HL,
     fmt='%.6e',
     delimiter='\t',

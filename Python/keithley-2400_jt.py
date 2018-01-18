@@ -181,7 +181,7 @@ def jt_scan(V_arr, t_step, condition):
             Js.append(data[1] * 1000 / A)
             t = time.time()
 
-    return ts, Vs, Is, Js
+    return {'ts': ts, 'Vs': Vs, 'Is': Is, 'Js': Js}
 
 
 # Turn off display
@@ -191,7 +191,7 @@ keithley2400.write(':DISP:ENAB 0')
 keithley2400.write(':SYST:AZER ONCE')
 
 # Carry out J-t voltage sweep
-jt = jt_scan(V_arr, t_step, condition)
+jt_data = jt_scan(V_arr, t_step, condition)
 
 # Disable output
 keithley2400.write('OUTP OFF')
@@ -203,11 +203,32 @@ if condition == 'light':
 # Turn on display
 keithley2400.write(':DISP:ENAB 1')
 
+# Convert to numpy array
+jt_data_arr = np.array(
+    [jt_data['ts'], jt_data['Vs'], jt_data['Is'], jt_data['Js']]).T
+
+# Split scan directions
+if V_start < V_stop:
+    jt_data_LH = jt_data_arr[:points, :]
+    jt_data_HL = jt_data_arr[points - 1:, :]
+else:
+    jt_data_HL = jt_data_arr[:points, :]
+    jt_data_LH = jt_data_arr[points - 1:, :]
+
 # Format and save the results
 np.savetxt(
-    folderpath + filename,
-    np.transpose(np.array(jt)),
-    fmt='%.9f',
+    (folderpath + filename).replace('.txt', '_LH.txt'),
+    jt_data_LH,
+    fmt='%.6e',
+    delimiter='\t',
+    newline='\r\n',
+    header='Time (s)\tV\tI (A)\tJ (mA/cm^2)',
+    comments='')
+
+np.savetxt(
+    (folderpath + filename).replace('.txt', '_HL.txt'),
+    jt_data_HL,
+    fmt='%.6e',
     delimiter='\t',
     newline='\r\n',
     header='Time (s)\tV\tI (A)\tJ (mA/cm^2)',
