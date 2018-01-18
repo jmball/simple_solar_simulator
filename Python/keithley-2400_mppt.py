@@ -3,7 +3,7 @@ import time
 
 import numpy as np
 
-import visa
+import pyvisa
 
 # Parse folder path, file name, and measurement parameters from command line
 # arguments. Remember to include the "python" keyword before the call to the
@@ -63,59 +63,46 @@ V_range = np.absolute(V_start)
 # bandgap for the given area
 I_range = 10 * 0.065 * A
 
-# Assign the VISA resource to a variable and reset Keithley 2450
-rm = visa.ResourceManager()
-keithley2450 = rm.open_resource('USB0::0x05E6::0x2450::04049675::INSTR')
-keithley2450.query('*IDN?')
-keithley2450.write('*RST')
-keithley2450.encoding = 'latin-1'
+# Assign the VISA resource to a variable
+rm = pyvisa.ResourceManager()
+keithley2400 = rm.open_resource('GPIB1::24::INSTR')
+keithley2400.query('*IDN?')
+keithley2400.write('*RST')
+keithley2400.encoding = 'latin-1'
 
-# Turn off output
-keithley2450.write('OUTP OFF')
+# Disable the output
+keithley2400.write('OUTP OFF')
 
-# Enable 4-wire sense measurement
-keithley2450.write(':SYST:RSEN ON')
-
-# Set digital I/O line 1 as a digital output line
-keithley2450.write(':DIG:LINE1:MODE DIG, OUT')
+# Enable 4-wire sense
+keithley2400.write(':SYST:RSEN 1')
 
 # Don't auto-off source after measurement
-keithley2450.write(':SOUR:CLE:AUTO OFF')
+keithley2400.write(':SOUR:CLE:AUTO OFF')
 
-# Set source function to voltage
-keithley2450.write(':SOUR:FUNC VOLT')
+# Set source mode to voltage
+keithley2400.write(':SOUR:FUNC VOLT')
 
-# Set source readback to on (measure the source voltage when measuring the
-# source current)
-keithley2450.write(':SOUR:VOLT:READ:BACK ON')
+# Set the voltage range
+keithley2400.write(':SOUR:VOLT:RANG {}'.format(V_range))
 
-# Set the voltage source range
-keithley2450.write(':SOUR:VOLT:RANG {}'.format(V_range))
+# Set the current range
+keithley2400.write(':SOUR:CURR:RANG {}'.format(I_range))
 
-# Set settling delay for sourcing voltage
-keithley2450.write(':SOUR:VOLT:DEL {}'.format(t_settling))
-
-# Set measurement function to current
-keithley2450.write(':SOUR:FUNC "CURR"')
-
-# Set current measurement range
-keithley2450.write(':SENS:CURR:RANG {}'.format(I_range))
+# Set the delay
+keithley2400.write(':SOUR:DEL {}'.format(t_settling))
 
 # Set the integration filter
-keithley2450.write(':SENS:CURR:NPLC {}'.format(nplc))
+keithley2400.write(':SENS:CURR:NPLC {}'.format(nplc))
 
-# Disable current and voltage autozero
-keithley2450.write(':CURR:AZER OFF')
-keithley2450.write(':VOLT:AZER OFF')
+# Disable autozero
+keithley2400.write(':SYST:AZER OFF')
 
 
-# Function for tracking maximum power point
 def track_max_power(V_start, t_track):
-    """Maximum power point tracker.
-
-    Starting at the seed voltage (V_start), find and track the maximum power
-    point for a fixed amount of time (t_track), taking as many measurements as
-    possible.
+    """
+    Function for tracking the maximum power point of a solar cell starting at
+    the seed voltage (V) for a fixed amount of time (t_track), taking
+    as many measurements as possible.
 
     Tracking is based on the method of steepest descent as follows:
 
@@ -167,77 +154,86 @@ def track_max_power(V_start, t_track):
     # Set the learning rate
     a = 0.1
 
-    # Turn on the Keithley output at zero volts
-    keithley2450.write(':SOUR:VOLT 0')
-    keithley2450.write('OUTP ON')
+    # Turn on the Keithley output at zero volts and measure for 4s in the dark
+    keithley2400.write(':SOUR:VOLT 0')
+    keithley2400.write('OUTP ON')
 
     # Start timing
     t_start = time.time()
+    t = time.time()
 
     # Measure Jsc in the dark for 3s
-    while time.time() - t_start < 3:
-        data = keithley2450.query(':MEAS:CURR? SEC, SOUR, READ')
+    while t - t_start < 3:
+        ts.append(t - t_start)
+        data = keithley2400.query(':MEAS:CURR?')  # Measure the current
         data = data.split(',')
         data = [float(item) for item in data]
-        ts.append(data[0])
-        Vs.append(data[1])
-        Is.append(data[2])
-        Js.append(data[2] * 1000 / A)
-        Ps.append(data[1] * data[2])
-        PCEs.append(np.absolute(data[1] * data[2] * 1000 / (suns * A)))
+        Vs.append(data[0])
+        Is.append(data[1])
+        Js.append(data[1] * 1000 / A)
+        Ps.append(data[0] * data[1])
+        PCEs.append(np.absolute(data[0] * data[1] * 1000 / (suns * A)))
+        t = time.time()
 
-    # Open the shutter of the solar simulator
-    keithley2450.write(':DIG:LINE1:STAT 1')
-
-    # Take a few measurements near the start voltage to initialise the tracker
+    # Open the shutter of the solar simulator and take a few measurements
+    # around the seed voltage to initialise the tracking algorithm.
+    keithley2400.write(':SOUR2:TTL 0')  # open the shutter
     for i in range(2):
-        keithley2450.write(':SOUR:VOLT {}'.format(V))
-        data = keithley2450.query(':MEAS:CURR? SEC, SOUR, READ')
+        ts.append(t - t_start)
+        keithley2400.write(':SOUR:VOLT {}'.fortmat(V))
+        data = keithley2400.query(':MEAS:CURR?')  # Measure the current
         data = data.split(',')
         data = [float(item) for item in data]
-        ts.append(data[0])
-        Vs.append(data[1])
-        Is.append(data[2])
-        Js.append(data[2] * 1000 / A)
-        Ps.append(data[1] * data[2])
-        PCEs.append(np.absolute(data[1] * data[2] * 1000 / (suns * A)))
+        Vs.append(data[0])
+        Is.append(data[1])
+        Js.append(data[1] * 1000 / A)
+        Ps.append(data[0] * data[1])
+        PCEs.append(np.absolute(data[0] * data[1] * 1000 / (suns * A)))
         V += 0.02
+        t = time.time()
 
-    # Track the maximum point using method of steepest descent
+    # Start tracking the maximum point using method of steepest descent
     i = len(Vs) - 1
-    while time.time() - t_start < t_track + 3:
+    while t - t_start < t_track + 3:
         if Vs[i] != Vs[i - 1]:
             dP_dV = (Ps[i] - Ps[i - 1]) / (Vs[i] - Vs[i - 1])
         else:
             dP_dV = np.sign((1 - (-1)) * np.random.random_sample() +
                             (-1)) * 0.002
         V = Vs[i] - a * dP_dV
-        keithley2450.write(':SOUR:VOLT {}'.format(V))
-        data = keithley2450.query(':MEAS:CURR? SEC, SOUR, READ')
+        ts.append(t - t_start)
+        keithley2400.write(':SOUR:VOLT {}'.format(V))
+        data = keithley2400.query(':MEAS:CURR?')  # Measure the current
         data = data.split(',')
         data = [float(item) for item in data]
-        ts.append(data[0])
-        Vs.append(data[1])
-        Is.append(data[2])
-        Js.append(data[2] * 1000 / A)
-        Ps.append(data[1] * data[2])
-        PCEs.append(np.absolute(data[1] * data[2] * 1000 / (suns * A)))
+        Vs.append(data[0])
+        Is.append(data[1])
+        Js.append(data[1] * 1000 / A)
+        Ps.append(data[0] * data[1])
+        PCEs.append(np.absolute(data[0] * data[1] * 1000 / (suns * A)))
+        t = time.time()
         i += 1
 
     return ts, Vs, Is, Js, Ps, PCEs
 
 
+# Turn off display
+keithley2400.write(':DISP:ENAB 0')
+
 # Manually reset zero reference values
-keithley2450.write(':AZER:ONCE')
+keithley2400.write(':SYST:AZER ONCE')
 
 # Track max power
 mppt_results = track_max_power(V_start, t_track)
 
-# Disable the output
-keithley2450.write('OUTP OFF')
+# Disable output
+keithley2400.write('OUTP OFF')
 
-# Close the shutter
-keithley2450.write(':DIG:LINE1:STAT 0')
+# Close shutter
+keithley2400.write(':SOUR2:TTL 1')
+
+# Turn off display
+keithley2400.write(':DISP:ENAB 1')
 
 # Format and save the results
 np.savetxt(

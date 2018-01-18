@@ -164,6 +164,9 @@
 			<Item Name="check_keithley-2400_is_connected.vi" Type="VI" URL="../SubVIs/check_keithley-2400_is_connected.vi"/>
 			<Item Name="check_keithley-2450_is_connected.vi" Type="VI" URL="../SubVIs/check_keithley-2450_is_connected.vi"/>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
+			<Item Name="measure_current_keithley-2450_python.vi" Type="VI" URL="../SubVIs/measure_current_keithley-2450_python.vi"/>
+			<Item Name="mppt_keithley-2400_python.vi" Type="VI" URL="../SubVIs/mppt_keithley-2400_python.vi"/>
+			<Item Name="mppt_keithley-2450_python.vi" Type="VI" URL="../SubVIs/mppt_keithley-2450_python.vi"/>
 			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files (x86)/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
 			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
 			<Item Name="set_multiplexor.vi" Type="VI" URL="../SubVIs/set_multiplexor.vi"/>

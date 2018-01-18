@@ -110,30 +110,16 @@ keithley2450.write(':VOLT:AZER OFF')
 
 
 # Function for tracking maximum power point
-def track_max_power(V_start, t_track):
-    """Maximum power point tracker.
+def track_max_power(V, t_track):
+    """Maximum power point stabilizer.
 
-    Starting at the seed voltage (V_start), find and track the maximum power
-    point for a fixed amount of time (t_track), taking as many measurements as
-    possible.
-
-    Tracking is based on the method of steepest descent as follows:
-
-    V_i+1 = V_i - a * (P_i - P_i-1) / (V_i - V_i-1)
-
-    where V is the applied voltage, P is the power output, i is the current
-    time step, i-1 is the previous step, and i+1 will be the next step. The
-    learning rate, a, limits or increases the step size and should be tuned to
-    ensure the voltage step can update fast enough to follow changes in the
-    output but without overshooting. When the voltage stabilises at the
-    maximum power point (V_i+1 = V_i) a small purturbation is either added or
-    subtracted randomly to ensure that the algorithm can still track changes
-    after a period of stability.
+    Holding at a fixed voltage (V), measure the power output for a fixed
+    amount of time (t_track), taking as many measurements as possible.
 
     Parameters
     ----------
-    V_start : float
-        Seed voltage for the maximum power point tracker (V)
+    V : float
+        Voltage for the maximum power point stabilizer (V)
     t_track : float
         Time to track the maximum power point for (s)
 
@@ -153,9 +139,6 @@ def track_max_power(V_start, t_track):
         Power conversion PCEs (%)
     """
 
-    # Subtract a small amount from the start voltage to initialise the tracker
-    V = V_start - 0.02
-
     # Initialise empty lists for storing data
     ts = []
     Vs = []
@@ -164,17 +147,14 @@ def track_max_power(V_start, t_track):
     Ps = []
     PCEs = []
 
-    # Set the learning rate
-    a = 0.1
-
-    # Turn on the Keithley output at zero volts
-    keithley2450.write(':SOUR:VOLT 0')
+    # Turn on the Keithley output at V
+    keithley2450.write(':SOUR:VOLT {}'.format(V))
     keithley2450.write('OUTP ON')
 
     # Start timing
     t_start = time.time()
 
-    # Measure Jsc in the dark for 3s
+    # Measure at V in the dark for 3s
     while time.time() - t_start < 3:
         data = keithley2450.query(':MEAS:CURR? SEC, SOUR, READ')
         data = data.split(',')
@@ -189,30 +169,8 @@ def track_max_power(V_start, t_track):
     # Open the shutter of the solar simulator
     keithley2450.write(':DIG:LINE1:STAT 1')
 
-    # Take a few measurements near the start voltage to initialise the tracker
-    for i in range(2):
-        keithley2450.write(':SOUR:VOLT {}'.format(V))
-        data = keithley2450.query(':MEAS:CURR? SEC, SOUR, READ')
-        data = data.split(',')
-        data = [float(item) for item in data]
-        ts.append(data[0])
-        Vs.append(data[1])
-        Is.append(data[2])
-        Js.append(data[2] * 1000 / A)
-        Ps.append(data[1] * data[2])
-        PCEs.append(np.absolute(data[1] * data[2] * 1000 / (suns * A)))
-        V += 0.02
-
-    # Track the maximum point using method of steepest descent
-    i = len(Vs) - 1
+    # Measure at V in the light for t_track
     while time.time() - t_start < t_track + 3:
-        if Vs[i] != Vs[i - 1]:
-            dP_dV = (Ps[i] - Ps[i - 1]) / (Vs[i] - Vs[i - 1])
-        else:
-            dP_dV = np.sign((1 - (-1)) * np.random.random_sample() +
-                            (-1)) * 0.002
-        V = Vs[i] - a * dP_dV
-        keithley2450.write(':SOUR:VOLT {}'.format(V))
         data = keithley2450.query(':MEAS:CURR? SEC, SOUR, READ')
         data = data.split(',')
         data = [float(item) for item in data]
@@ -222,7 +180,6 @@ def track_max_power(V_start, t_track):
         Js.append(data[2] * 1000 / A)
         Ps.append(data[1] * data[2])
         PCEs.append(np.absolute(data[1] * data[2] * 1000 / (suns * A)))
-        i += 1
 
     return ts, Vs, Is, Js, Ps, PCEs
 

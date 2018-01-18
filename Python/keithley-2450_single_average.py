@@ -9,7 +9,6 @@ import visa
 # Folder paths must use forward slashes to separate subfolders.
 parser = argparse.ArgumentParser(description='Measure current')
 parser.add_argument('V', metavar='V', type=float, help='Applied voltage (V)')
-parser.add_argument('A', metavar='A', type=float, help='Device area (cm^2)')
 parser.add_argument(
     'I_comp', metavar='I_comp', type=float, help='Compliance current (A)')
 parser.add_argument(
@@ -23,7 +22,6 @@ args = parser.parse_args()
 
 # Assign argparse arguments to variables
 V = args.V
-A = args.A
 I_comp = args.I_comp
 nplc = args.nplc
 t_settling = args.t_settling
@@ -61,7 +59,7 @@ keithley2450.write(':SOUR:VOLT:RANG:AUTO ON')
 keithley2450.write(':SOUR:VOLT:DEL {}'.format(t_settling))
 
 # Set measurement function to current
-keithley2450.write(':SOUR:FUNC CURR')
+keithley2450.write(':SOUR:FUNC "CURR"')
 
 # Enable current measurement autoranging
 keithley2450.write(':SENS:CURR:RANG:AUTO ON')
@@ -73,7 +71,7 @@ keithley2450.write(':SENS:CURR:PROT {}'.format(I_comp))
 keithley2450.write(':SENS:CURR:NPLC {}'.format(nplc))
 
 # Initialise empty list for storing current densities
-Js = []
+Is = []
 
 # Open the shutter of the solar simulator
 keithley2450.write(':DIG:LINE1:STAT 1')
@@ -88,7 +86,7 @@ t_start = time.time()
 # Measure current for 2 seconds
 while time.time() - t_start < 2:
     I = float(keithley2450.query(':MEAS:CURR? READ'))
-    Js.append(I * 1000 / A)
+    Is.append(I)
 
 # Disable the output
 keithley2450.write('OUTP OFF')
@@ -97,4 +95,4 @@ keithley2450.write('OUTP OFF')
 keithley2450.write(':DIG:LINE1:STAT 0')
 
 # Calculate and print average current density
-print(sum(Js) / len(Js))
+print(sum(Is) / len(Is))
