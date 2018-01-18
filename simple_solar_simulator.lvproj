@@ -54,6 +54,9 @@
 		<Item Name="measure_j-v_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_j-v_keithley-2450.vi"/>
 		<Item Name="measure_max_power_stabilisation_keithley-2400.vi" Type="VI" URL="../SubVIs/measure_max_power_stabilisation_keithley-2400.vi"/>
 		<Item Name="measure_max_power_stabilisation_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_max_power_stabilisation_keithley-2450.vi"/>
+		<Item Name="mpps_keithley-2400.vi" Type="VI" URL="../SubVIs/mpps_keithley-2400.vi"/>
+		<Item Name="mpps_keithley-2400_python.vi" Type="VI" URL="../SubVIs/mpps_keithley-2400_python.vi"/>
+		<Item Name="mpps_keithley-2450_python.vi" Type="VI" URL="../SubVIs/mpps_keithley-2450_python.vi"/>
 		<Item Name="nplc_for_j-v_scan.ctl" Type="VI" URL="../TypeDefs/nplc_for_j-v_scan.ctl"/>
 		<Item Name="remove_duplicates_by_column.vi" Type="VI" URL="../SubVIs/remove_duplicates_by_column.vi"/>
 		<Item Name="save_data.vi" Type="VI" URL="../SubVIs/save_data.vi"/>
