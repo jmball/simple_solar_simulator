@@ -23,6 +23,7 @@
 		<Item Name="check_mux_is_connected.vi" Type="VI" URL="../SubVIs/check_mux_is_connected.vi"/>
 		<Item Name="create_data_folders.vi" Type="VI" URL="../SubVIs/create_data_folders.vi"/>
 		<Item Name="create_date_array.vi" Type="VI" URL="../SubVIs/create_date_array.vi"/>
+		<Item Name="create_folders_and_log.vi" Type="VI" URL="../SubVIs/create_folders_and_log.vi"/>
 		<Item Name="create_j-t_folder.vi" Type="VI" URL="../SubVIs/create_j-t_folder.vi"/>
 		<Item Name="create_max_power_folder.vi" Type="VI" URL="../SubVIs/create_max_power_folder.vi"/>
 		<Item Name="data_to_plot.vi" Type="VI" URL="../SubVIs/data_to_plot.vi"/>
