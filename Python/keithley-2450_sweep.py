@@ -371,7 +371,11 @@ np.savetxt(
             'pmax = {7} mW/cm^2\r\n'
             'scan rate = {8} V/s\r\n'
             'area = {9} cm^2\r\n'
-            'number of suns = {10}').format(jsc_LH, voc_LH, ff_LH, pce_LH,
-                                            vmp_LH, jmp_LH, pmax_LH, rate_LH,
+            'number of suns = {10}').format(jsc_HL, voc_HL, ff_HL, pce_HL,
+                                            vmp_HL, jmp_HL, pmax_HL, rate_HL,
                                             A, suns),
     comments='')
+
+print(jsc_LH, voc_LH, ff_LH, pce_LH, A, stab_level, t_stabilisation, t_meas,
+      vmp_LH, rate_LH, jsc_HL, voc_HL, ff_HL, pce_HL, A, stab_level,
+      t_stabilisation, t_meas, vmp_HL, rate_HL)

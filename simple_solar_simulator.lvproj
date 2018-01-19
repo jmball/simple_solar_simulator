@@ -18,6 +18,7 @@
 		<Item Name="bool_to_string.vi" Type="VI" URL="../SubVIs/bool_to_string.vi"/>
 		<Item Name="build_meas_status_string.vi" Type="VI" URL="../SubVIs/build_meas_status_string.vi"/>
 		<Item Name="build_queue.vi" Type="VI" URL="../SubVIs/build_queue.vi"/>
+		<Item Name="calcualte_jv_metrics.vi" Type="VI" URL="../SubVIs/calcualte_jv_metrics.vi"/>
 		<Item Name="calculate_scan_rate.vi" Type="VI" URL="../SubVIs/calculate_scan_rate.vi"/>
 		<Item Name="check_keithley_is_connected.vi" Type="VI" URL="../SubVIs/check_keithley_is_connected.vi"/>
 		<Item Name="check_mux_is_connected.vi" Type="VI" URL="../SubVIs/check_mux_is_connected.vi"/>
@@ -30,13 +31,17 @@
 		<Item Name="delete_scan_settings.vi" Type="VI" URL="../SubVIs/delete_scan_settings.vi"/>
 		<Item Name="find_best_pixel_from_log.vi" Type="VI" URL="../SubVIs/find_best_pixel_from_log.vi"/>
 		<Item Name="find_v-mp_from_log.vi" Type="VI" URL="../SubVIs/find_v-mp_from_log.vi"/>
+		<Item Name="format_jv_file_data.vi" Type="VI" URL="../SubVIs/format_jv_file_data.vi"/>
 		<Item Name="Generate report control.ctl" Type="VI" URL="../SubVIs/Generate report control.ctl"/>
+		<Item Name="generate_jv_filepath.vi" Type="VI" URL="../SubVIs/generate_jv_filepath.vi"/>
 		<Item Name="generate_voltage_lists.vi" Type="VI" URL="../SubVIs/generate_voltage_lists.vi"/>
 		<Item Name="get_mux_pin.vi" Type="VI" URL="../SubVIs/get_mux_pin.vi"/>
 		<Item Name="j-t_data_to_plot.vi" Type="VI" URL="../SubVIs/j-t_data_to_plot.vi"/>
 		<Item Name="jt_keithley-2400_python.vi" Type="VI" URL="../SubVIs/jt_keithley-2400_python.vi"/>
 		<Item Name="jt_keithley-2450_python.vi" Type="VI" URL="../SubVIs/jt_keithley-2450_python.vi"/>
 		<Item Name="JV Data analysis from master log file.vi" Type="VI" URL="../SubVIs/JV Data analysis from master log file.vi"/>
+		<Item Name="jv_keithley-2400.vi" Type="VI" URL="../SubVIs/jv_keithley-2400.vi"/>
+		<Item Name="jv_keithley-2450_python.vi" Type="VI" URL="../SubVIs/jv_keithley-2450_python.vi"/>
 		<Item Name="Keithley 24XX.lvlib" Type="Library" URL="/&lt;instrlib&gt;/Keithley 24XX/Keithley 24XX.lvlib"/>
 		<Item Name="keithley-2400_j-t_list.vi" Type="VI" URL="../SubVIs/keithley-2400_j-t_list.vi"/>
 		<Item Name="keithley-2400_max_p_list.vi" Type="VI" URL="../SubVIs/keithley-2400_max_p_list.vi"/>
@@ -54,7 +59,7 @@
 		<Item Name="measure_current_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_current_keithley-2450.vi"/>
 		<Item Name="measure_j-t.vi" Type="VI" URL="../SubVIs/measure_j-t.vi"/>
 		<Item Name="measure_j-t_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_j-t_keithley-2450.vi"/>
-		<Item Name="measure_j-v_keithley-2400.vi" Type="VI" URL="../SubVIs/measure_j-v_keithley-2400.vi"/>
+		<Item Name="measure_j-v.vi" Type="VI" URL="../SubVIs/measure_j-v.vi"/>
 		<Item Name="measure_j-v_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_j-v_keithley-2450.vi"/>
 		<Item Name="measure_max-power-stabilisation.vi" Type="VI" URL="../SubVIs/measure_max-power-stabilisation.vi"/>
 		<Item Name="measure_max_power_stabilisation_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_max_power_stabilisation_keithley-2450.vi"/>
@@ -63,11 +68,12 @@
 		<Item Name="mpps_keithley-2450_python.vi" Type="VI" URL="../SubVIs/mpps_keithley-2450_python.vi"/>
 		<Item Name="nplc_for_j-v_scan.ctl" Type="VI" URL="../TypeDefs/nplc_for_j-v_scan.ctl"/>
 		<Item Name="remove_duplicates_by_column.vi" Type="VI" URL="../SubVIs/remove_duplicates_by_column.vi"/>
-		<Item Name="save_data.vi" Type="VI" URL="../SubVIs/save_data.vi"/>
 		<Item Name="save_device_details.vi" Type="VI" URL="../SubVIs/save_device_details.vi"/>
 		<Item Name="save_j-t_data_v2.vi" Type="VI" URL="../SubVIs/save_j-t_data_v2.vi"/>
+		<Item Name="save_jv_data.vi" Type="VI" URL="../SubVIs/save_jv_data.vi"/>
 		<Item Name="save_max_p_Data.vi" Type="VI" URL="../SubVIs/save_max_p_Data.vi"/>
 		<Item Name="save_scan_settings.vi" Type="VI" URL="../SubVIs/save_scan_settings.vi"/>
+		<Item Name="save_stabilisation_data.vi" Type="VI" URL="../SubVIs/save_stabilisation_data.vi"/>
 		<Item Name="scan_settings.ctl" Type="VI" URL="../TypeDefs/scan_settings.ctl"/>
 		<Item Name="Send_lamp_power_supply_command.vi" Type="VI" URL="../SubVIs/Send_lamp_power_supply_command.vi"/>
 		<Item Name="Settings Boolean.ctl" Type="VI" URL="../TypeDefs/Settings Boolean.ctl"/>
@@ -82,6 +88,7 @@
 		<Item Name="Update Meas Type to JV Scan.vi" Type="VI" URL="../SubVIs/Update Meas Type to JV Scan.vi"/>
 		<Item Name="Update Meas Type to MaxPowStab.vi" Type="VI" URL="../SubVIs/Update Meas Type to MaxPowStab.vi"/>
 		<Item Name="Update Meas Type to Repeat JV Scan for best.vi" Type="VI" URL="../SubVIs/Update Meas Type to Repeat JV Scan for best.vi"/>
+		<Item Name="update_jv_log.vi" Type="VI" URL="../SubVIs/update_jv_log.vi"/>
 		<Item Name="upload_details_from_spreadsheet.vi" Type="VI" URL="../SubVIs/upload_details_from_spreadsheet.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="instr.lib" Type="Folder">
