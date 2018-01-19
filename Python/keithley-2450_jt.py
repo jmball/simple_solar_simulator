@@ -204,8 +204,7 @@ if condition == 'light':
     keithley2450.write(':DIG:LINE1:STAT 0')
 
 # Convert to numpy array
-jt_data_arr = np.array(
-    [jt_data['ts'], jt_data['Vs'], jt_data['Is'], jt_data['Js']]).T
+jt_data_arr = np.array(jt_data).T
 
 # Split scan directions
 if V_start < V_stop:

@@ -239,7 +239,7 @@ keithley2450.write(':DIG:LINE1:STAT 0')
 # Format and save the results
 np.savetxt(
     folderpath + filename,
-    np.transpose(np.array(mppt_results)),
+    np.array(mppt_results).T,
     fmt='%.9f',
     delimiter='\t',
     newline='\r\n',

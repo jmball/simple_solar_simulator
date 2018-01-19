@@ -1,4 +1,5 @@
 import argparse
+import time
 
 import numpy as np
 import scipy as sp
@@ -34,19 +35,46 @@ parser.add_argument(
     'V_stop', metavar='V_stop', type=float, help='Stop voltage (V)')
 parser.add_argument(
     'V_step', metavar='V_step', type=float, help='Step voltage (V)')
-parser.add_argument('A', metavar='A', type=float, help='Device area (cm^2)')
+parser.add_argument(
+    'dual', metavar='dual', type=bool, help='Dual sweep (True or False)?')
+parser.add_argument(
+    'inverted',
+    metavar='inverted',
+    type=bool,
+    help='Inverted device structure (True or False)?')
+parser.add_argument(
+    't_meas', metavar='t_meas', type=float, help='Measurement delay (s)')
 parser.add_argument(
     'nplc',
     metavar='nplc',
     type=float,
     help='Integration filter in number of power line cycles (NPLC)')
 parser.add_argument(
-    't_meas', metavar='t_meas', type=float, help='Measurement delay (s)')
+    't_stabilisation',
+    metavar='t_stabilisation',
+    type=float,
+    help='Stabilisation time (s)')
+parser.add_argument(
+    'stabilisation_mode',
+    metavar='stabilisation_mode',
+    type=str,
+    help='Stabilisation mode (V or I)')
+parser.add_argument(
+    'stabilisation_level',
+    metavar='stabilisation_level',
+    type=float,
+    help='Stabilisation level (V or A)')
 parser.add_argument(
     'condition',
     metavar='condition',
     type=str,
     help='Illumination conditions (light or dark)')
+parser.add_argument(
+    'dark_stabilisation',
+    metavar='dark_stabilisation',
+    type=bool,
+    help='Stabilisation in the dark (True or False)')
+parser.add_argument('A', metavar='A', type=float, help='Device area (cm^2)')
 parser.add_argument(
     'suns',
     metavar='suns',
@@ -60,10 +88,16 @@ filename = args.file_name
 V_start = args.V_start
 V_stop = args.V_stop
 V_step = args.V_step
-A = args.A
-nplc = args.nplc
+dual = args.dual
+inverted = args.inverted
 t_meas = args.t_meas
+nplc = args.nplc
+t_stabilisation = args.t_stabilisation
+stab_mode = args.stabilisation_mode
+stab_level = args.stabilisation_level
 condition = args.condition
+dark_stab = args.dark_stabilisation
+A = args.A
 suns = args.suns
 points = int(1 + (np.absolute(V_start - V_stop) / V_step))
 V_range = np.max([np.absolute(V_start), np.absolute(V_stop)])
@@ -81,6 +115,116 @@ keithley2450.write(':SYST:RSEN ON')
 # Set digital I/O line 1 as a digital output line
 keithley2450.write(':DIG:LINE1:MODE DIG, OUT')
 
+# Set the integration filter
+keithley2450.write(':SENS:CURR:NPLC {}'.format(nplc))
+
+# Disable current and voltage autozero
+keithley2450.write(':CURR:AZER OFF')
+keithley2450.write(':VOLT:AZER OFF')
+
+
+def stabilisation(t_stabilisation, stab_mode, stab_level, dark_stab, condition,
+                  area):
+    """Stabilise the device before a fixed amount of time.
+
+    Parameters
+    ----------
+    t_stabilisation : float
+        time to stabilise for (s)
+    stab_mode : str
+        stabilisation mode (V or I)
+    stab_level : float
+        stabilisation value (V or A)
+    dark_stab : bool
+        stabilise in the dark? (True or False)
+    condition : str
+        illumination condition (light or dark)
+    area : float
+        device area (cm^2)
+
+    Returns
+    -------
+    ts : array of float
+        times (s)
+    Vs : array of float
+        applied voltages (V)
+    Is : array of float
+        currents (A)
+    Js : array of float
+        current densities (mA/cm^2)
+    """
+
+    if t_stabilisation == 0:
+        return None
+
+    if condition == 'dark':
+        if not dark_stab:
+            return None
+
+    # Initialise empty lists for storing data
+    ts = []
+    Vs = []
+    Is = []
+    Js = []
+
+    # Configure output depending on stabilisation mode
+    if stab_mode == 'V':
+        keithley2450.write(':SOUR:FUNC VOLT')
+        keithley2450.write(':SOUR:VOLT:READ:BACK ON')
+        keithley2450.write(':SOUR:VOLT:RANG {}'.format(V_range))
+        keithley2450.write(':SOUR:VOLT:DEL {}'.format(t_meas))
+        keithley2450.write(':SENS:FUNC "CURR"')
+        keithley2450.write(':SENS:CURR:RANG {}'.format(I_range))
+        keithley2450.write(':SOUR:VOLT {}'.format(stab_level))
+    elif stab_mode == 'I':
+        keithley2450.write(':SOUR:FUNC CURR')
+        keithley2450.write(':SOUR:CURR:READ:BACK ON')
+        keithley2450.write(':SOUR:CURR:RANG {}'.format(I_range))
+        keithley2450.write(':SOUR:CURR:DEL {}'.format(t_meas))
+        keithley2450.write(':SENS:FUNC "VOLT"')
+        keithley2450.write(':SENS:VOLT:RANG {}'.format(V_range))
+        keithley2450.write(':SOUR:CURR {}'.format(stab_level))
+
+    if condition == 'light':
+        # Open the shutter of the solar simulator
+        keithley2450.write(':DIG:LINE1:STAT 1')
+
+    # Turn on output
+    keithley2450.write('OUTP ON')
+
+    # Reset stabilisation timer
+    t_start = time.time()
+
+    # Take readings continuously for t_stabilisation depending on mode
+    if stab_mode == 'V':
+        while time.time() - t_start < t_stabilisation:
+            data = keithley2450.query(':MEAS:CURR? SEC, SOUR, READ')
+            data = data.split(',')
+            data = [float(item) for item in data]
+            ts.append(data[0])
+            Vs.append(data[1])
+            Is.append(data[2])
+            Js.append(data[2] * 1000 / A)
+    elif stab_mode == 'I':
+        while time.time() - t_start < t_stabilisation:
+            data = keithley2450.query(':MEAS:VOLT? SEC, SOUR, READ')
+            data = data.split(',')
+            data = [float(item) for item in data]
+            ts.append(data[0])
+            Is.append(data[1])
+            Vs.append(data[2])
+            Js.append(data[2] * 1000 / A)
+
+    return ts, Vs, Is, Js
+
+
+# Manually reset zero reference values
+keithley2450.write(':AZER:ONCE')
+
+# Carry out pre-sweep stabilisation if required
+stab_data = stabilisation(t_stabilisation, stab_mode, stab_level, dark_stab,
+                          condition, A)
+
 # Set source function to voltage
 keithley2450.write(':SOUR:FUNC VOLT')
 
@@ -96,16 +240,6 @@ keithley2450.write(':SENS:FUNC "CURR"')
 
 # Set current measurement range
 keithley2450.write(':SENS:CURR:RANG {}'.format(I_range))
-
-# Set the integration filter
-keithley2450.write(':SENS:CURR:NPLC {}'.format(nplc))
-
-# Disable current and voltage autozero
-keithley2450.write(':CURR:AZER OFF')
-keithley2450.write(':VOLT:AZER OFF')
-
-# Manually reset zero reference values
-keithley2450.write(':AZER:ONCE')
 
 # Configure the voltage sweep
 keithley2450.write(
@@ -124,7 +258,18 @@ keithley2450.write('*WAI')
 if condition == 'light':
     keithley2450.write(':DIG:LINE1:STAT 0')
 
-# Read data from buffer
+# Format and save stabilisation data
+if stab_data is not None:
+    np.savetxt(
+        (folderpath + filename).replace('.txt', '_stabilisation.txt'),
+        np.array(stab_data).T,
+        fmt='%.6e',
+        delimiter='\t',
+        newline='\r\n',
+        header='Time (s)\tV\tI (A)\tJ (mA/cm^2)',
+        comments='')
+
+# Read J-V data from buffer
 iv_data = keithley2450.query(
     ':TRAC:DATA? 1, {}, "defbuffer1", REL, SOUR, READ'.format(2 * points - 1))
 
@@ -132,12 +277,13 @@ iv_data = keithley2450.query(
 iv_data = iv_data.split(",")
 iv_data[len(iv_data) - 1] = iv_data[len(iv_data) - 1].strip("\n")
 
-# Convert to numpy arrays
-t = np.array(iv_data[::3], dtype='float')
-v = np.array(iv_data[1::3], dtype='float')
-i = np.array(iv_data[2::3], dtype='float')
-j = i / A
-iv_data_arr = np.stack((t, v, i, j), axis=1)
+# Convert to numpy array
+ts = iv_data[::3]
+Vs = iv_data[1::3]
+Is = iv_data[2::3]
+iv_data_arr = np.array([ts, Vs, Is]).T
+Js = iv_data_arr[:, 2] / A
+iv_data_arr = np.insert(iv_data_arr, iv_data_arr.shape[1], Js, axis=1)
 
 # Split scan directions
 if V_start < V_stop:

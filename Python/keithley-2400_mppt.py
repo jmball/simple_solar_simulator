@@ -236,7 +236,7 @@ keithley2400.write(':DISP:ENAB 1')
 # Format and save the results
 np.savetxt(
     folderpath + filename,
-    np.transpose(np.array(mppt_results)),
+    np.array(mppt_results).T,
     fmt='%.9f',
     delimiter='\t',
     newline='\r\n',

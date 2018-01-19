@@ -181,7 +181,7 @@ def jt_scan(V_arr, t_step, condition):
             Js.append(data[1] * 1000 / A)
             t = time.time()
 
-    return {'ts': ts, 'Vs': Vs, 'Is': Is, 'Js': Js}
+    return ts, Vs, Is, Js
 
 
 # Turn off display
@@ -204,8 +204,7 @@ if condition == 'light':
 keithley2400.write(':DISP:ENAB 1')
 
 # Convert to numpy array
-jt_data_arr = np.array(
-    [jt_data['ts'], jt_data['Vs'], jt_data['Is'], jt_data['Js']]).T
+jt_data_arr = np.array(jt_data).T
 
 # Split scan directions
 if V_start < V_stop:
