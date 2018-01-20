@@ -293,7 +293,7 @@ else:
     iv_data_HL = iv_data_arr[:points, :]
     iv_data_LH = iv_data_arr[points - 1:, :]
 
-# Illumination intensity, mW / cm^2
+# Illumination intensity, mW/cm^2
 pin = 100 * suns
 
 # Calculate J-V metrics
@@ -332,9 +332,13 @@ ff_LH = pmax_LH / (voc_LH * jsc_LH)
 pce_HL = pmax_HL * 100 / pin
 pce_LH = pmax_LH * 100 / pin
 
+# Generate file paths
+path_LH = (folderpath + filename).replace('.txt', '_LH.txt')
+path_HL = (folderpath + filename).replace('.txt', '_HL.txt')
+
 # Save results to text files
 np.savetxt(
-    (folderpath + filename).replace('.txt', '_LH.txt'),
+    path_LH,
     iv_data_LH,
     fmt='%.6e',
     delimiter='\t',
@@ -355,7 +359,7 @@ np.savetxt(
                                             A, suns),
     comments='')
 np.savetxt(
-    (folderpath + filename).replace('.txt', '_HL.txt'),
+    path_HL,
     iv_data_HL,
     fmt='%.6e',
     delimiter='\t',
@@ -376,6 +380,14 @@ np.savetxt(
                                             A, suns),
     comments='')
 
-print(jsc_LH, voc_LH, ff_LH, pce_LH, A, stab_level, t_stabilisation, t_meas,
-      vmp_LH, rate_LH, jsc_HL, voc_HL, ff_HL, pce_HL, A, stab_level,
-      t_stabilisation, t_meas, vmp_HL, rate_HL)
+# Print parameters for log file, grouping first scan direction first
+if V_start < V_stop:
+    print(jsc_LH, voc_LH, ff_LH, pce_LH, A, stab_level, t_stabilisation,
+          t_meas, vmp_LH, rate_LH, path_LH, "LH", jsc_HL, voc_HL, ff_HL,
+          pce_HL, A, stab_level, t_stabilisation, t_meas, vmp_HL, rate_HL,
+          path_HL, "HL")
+else:
+    print(jsc_HL, voc_HL, ff_HL, pce_HL, A, stab_level, t_stabilisation,
+          t_meas, vmp_HL, rate_HL, path_HL, "HL", jsc_LH, voc_LH, ff_LH,
+          pce_LH, A, stab_level, t_stabilisation, t_meas, vmp_LH, rate_LH,
+          path_LH, "LH")
