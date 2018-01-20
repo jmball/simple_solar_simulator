@@ -60,9 +60,7 @@
 		<Item Name="measure_j-t.vi" Type="VI" URL="../SubVIs/measure_j-t.vi"/>
 		<Item Name="measure_j-t_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_j-t_keithley-2450.vi"/>
 		<Item Name="measure_j-v.vi" Type="VI" URL="../SubVIs/measure_j-v.vi"/>
-		<Item Name="measure_j-v_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_j-v_keithley-2450.vi"/>
 		<Item Name="measure_max-power-stabilisation.vi" Type="VI" URL="../SubVIs/measure_max-power-stabilisation.vi"/>
-		<Item Name="measure_max_power_stabilisation_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_max_power_stabilisation_keithley-2450.vi"/>
 		<Item Name="mpps_keithley-2400.vi" Type="VI" URL="../SubVIs/mpps_keithley-2400.vi"/>
 		<Item Name="mpps_keithley-2400_python.vi" Type="VI" URL="../SubVIs/mpps_keithley-2400_python.vi"/>
 		<Item Name="mpps_keithley-2450_python.vi" Type="VI" URL="../SubVIs/mpps_keithley-2450_python.vi"/>
@@ -81,7 +79,6 @@
 		<Item Name="sort_scan_settings.vi" Type="VI" URL="../SubVIs/sort_scan_settings.vi"/>
 		<Item Name="State Enumerate Ring.ctl" Type="VI" URL="../TypeDefs/State Enumerate Ring.ctl"/>
 		<Item Name="time_left_calculator.vi" Type="VI" URL="../SubVIs/time_left_calculator.vi"/>
-		<Item Name="timing_calculator.vi" Type="VI" URL="../SubVIs/timing_calculator.vi"/>
 		<Item Name="Update Meas Type to Best J-t Scan.vi" Type="VI" URL="../SubVIs/Update Meas Type to Best J-t Scan.vi"/>
 		<Item Name="Update Meas Type to Best MaxPowStab.vi" Type="VI" URL="../SubVIs/Update Meas Type to Best MaxPowStab.vi"/>
 		<Item Name="Update Meas Type to J-t Scan.vi" Type="VI" URL="../SubVIs/Update Meas Type to J-t Scan.vi"/>
