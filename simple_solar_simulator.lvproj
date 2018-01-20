@@ -10,82 +10,67 @@
 		<Property Name="server.vi.callsEnabled" Type="Bool">true</Property>
 		<Property Name="server.vi.propertiesEnabled" Type="Bool">true</Property>
 		<Property Name="specify.custom.address" Type="Bool">false</Property>
-		<Item Name="add_light-dark_j-t_measurements_to_queue.vi" Type="VI" URL="../SubVIs/add_light-dark_j-t_measurements_to_queue.vi"/>
-		<Item Name="add_light-dark_measurements_to_queue.vi" Type="VI" URL="../SubVIs/add_light-dark_measurements_to_queue.vi"/>
-		<Item Name="add_max_p_measurement_to_queue.vi" Type="VI" URL="../SubVIs/add_max_p_measurement_to_queue.vi"/>
+		<Item Name="add_light-dark_jt_to_queue.vi" Type="VI" URL="../SubVIs/add_light-dark_jt_to_queue.vi"/>
+		<Item Name="add_light-dark_jv_to_queue.vi" Type="VI" URL="../SubVIs/add_light-dark_jv_to_queue.vi"/>
+		<Item Name="add_light_mpps_to_queue.vi" Type="VI" URL="../SubVIs/add_light_mpps_to_queue.vi"/>
 		<Item Name="add_mppt_data_to_log.vi" Type="VI" URL="../SubVIs/add_mppt_data_to_log.vi"/>
 		<Item Name="add_repeat_measurements_to_queue.vi" Type="VI" URL="../SubVIs/add_repeat_measurements_to_queue.vi"/>
 		<Item Name="bool_to_string.vi" Type="VI" URL="../SubVIs/bool_to_string.vi"/>
 		<Item Name="build_meas_status_string.vi" Type="VI" URL="../SubVIs/build_meas_status_string.vi"/>
 		<Item Name="build_queue.vi" Type="VI" URL="../SubVIs/build_queue.vi"/>
 		<Item Name="calcualte_jv_metrics.vi" Type="VI" URL="../SubVIs/calcualte_jv_metrics.vi"/>
-		<Item Name="calculate_scan_rate.vi" Type="VI" URL="../SubVIs/calculate_scan_rate.vi"/>
-		<Item Name="check_keithley_is_connected.vi" Type="VI" URL="../SubVIs/check_keithley_is_connected.vi"/>
+		<Item Name="check_keithley-2400_is_connected.vi" Type="VI" URL="../SubVIs/check_keithley-2400_is_connected.vi"/>
+		<Item Name="check_keithley-2450_is_connected.vi" Type="VI" URL="../SubVIs/check_keithley-2450_is_connected.vi"/>
 		<Item Name="check_mux_is_connected.vi" Type="VI" URL="../SubVIs/check_mux_is_connected.vi"/>
 		<Item Name="create_data_folders.vi" Type="VI" URL="../SubVIs/create_data_folders.vi"/>
 		<Item Name="create_date_array.vi" Type="VI" URL="../SubVIs/create_date_array.vi"/>
 		<Item Name="create_folders_and_log.vi" Type="VI" URL="../SubVIs/create_folders_and_log.vi"/>
-		<Item Name="create_j-t_folder.vi" Type="VI" URL="../SubVIs/create_j-t_folder.vi"/>
-		<Item Name="create_max_power_folder.vi" Type="VI" URL="../SubVIs/create_max_power_folder.vi"/>
-		<Item Name="data_to_plot.vi" Type="VI" URL="../SubVIs/data_to_plot.vi"/>
+		<Item Name="create_jt_folder.vi" Type="VI" URL="../SubVIs/create_jt_folder.vi"/>
+		<Item Name="create_mpps_folder.vi" Type="VI" URL="../SubVIs/create_mpps_folder.vi"/>
 		<Item Name="delete_scan_settings.vi" Type="VI" URL="../SubVIs/delete_scan_settings.vi"/>
 		<Item Name="find_best_pixel_from_log.vi" Type="VI" URL="../SubVIs/find_best_pixel_from_log.vi"/>
-		<Item Name="find_v-mp_from_log.vi" Type="VI" URL="../SubVIs/find_v-mp_from_log.vi"/>
+		<Item Name="find_vmp_from_log.vi" Type="VI" URL="../SubVIs/find_vmp_from_log.vi"/>
 		<Item Name="format_jv_file_data.vi" Type="VI" URL="../SubVIs/format_jv_file_data.vi"/>
-		<Item Name="Generate report control.ctl" Type="VI" URL="../SubVIs/Generate report control.ctl"/>
 		<Item Name="generate_jv_filepath.vi" Type="VI" URL="../SubVIs/generate_jv_filepath.vi"/>
-		<Item Name="generate_voltage_lists.vi" Type="VI" URL="../SubVIs/generate_voltage_lists.vi"/>
-		<Item Name="get_mux_pin.vi" Type="VI" URL="../SubVIs/get_mux_pin.vi"/>
-		<Item Name="j-t_data_to_plot.vi" Type="VI" URL="../SubVIs/j-t_data_to_plot.vi"/>
+		<Item Name="jt_analysis_from_master_log.vi" Type="VI" URL="../SubVIs/jt_analysis_from_master_log.vi"/>
+		<Item Name="jt_data_to_plot.vi" Type="VI" URL="../SubVIs/jt_data_to_plot.vi"/>
 		<Item Name="jt_keithley-2400_python.vi" Type="VI" URL="../SubVIs/jt_keithley-2400_python.vi"/>
 		<Item Name="jt_keithley-2450_python.vi" Type="VI" URL="../SubVIs/jt_keithley-2450_python.vi"/>
-		<Item Name="JV Data analysis from master log file.vi" Type="VI" URL="../SubVIs/JV Data analysis from master log file.vi"/>
 		<Item Name="jv_keithley-2400.vi" Type="VI" URL="../SubVIs/jv_keithley-2400.vi"/>
 		<Item Name="jv_keithley-2450_python.vi" Type="VI" URL="../SubVIs/jv_keithley-2450_python.vi"/>
 		<Item Name="Keithley 24XX.lvlib" Type="Library" URL="/&lt;instrlib&gt;/Keithley 24XX/Keithley 24XX.lvlib"/>
-		<Item Name="keithley-2400_j-t_list.vi" Type="VI" URL="../SubVIs/keithley-2400_j-t_list.vi"/>
-		<Item Name="keithley-2400_max_p_list.vi" Type="VI" URL="../SubVIs/keithley-2400_max_p_list.vi"/>
 		<Item Name="keithley-2400_sweep.vi" Type="VI" URL="../SubVIs/keithley-2400_sweep.vi"/>
-		<Item Name="keithley-2450_j-t_list.vi" Type="VI" URL="../SubVIs/keithley-2450_j-t_list.vi"/>
-		<Item Name="keithley-2450_max_p_list.vi" Type="VI" URL="../SubVIs/keithley-2450_max_p_list.vi"/>
-		<Item Name="keithley-2450_sweep.vi" Type="VI" URL="../SubVIs/keithley-2450_sweep.vi"/>
-		<Item Name="Lamp_power_control.vi" Type="VI" URL="../../J-V Measurement/Prelim/Lamp_power_control.vi"/>
 		<Item Name="load_saved_scan_settings.vi" Type="VI" URL="../SubVIs/load_saved_scan_settings.vi"/>
 		<Item Name="log_file_to_display_data.vi" Type="VI" URL="../SubVIs/log_file_to_display_data.vi"/>
-		<Item Name="Login_dialog.vi" Type="VI" URL="../SubVIs/Login_dialog.vi"/>
+		<Item Name="login_dialog.vi" Type="VI" URL="../SubVIs/login_dialog.vi"/>
 		<Item Name="main.vi" Type="VI" URL="../main.vi"/>
-		<Item Name="max_power_data_to_plot.vi" Type="VI" URL="../SubVIs/max_power_data_to_plot.vi"/>
 		<Item Name="measure_current_keithley-2400.vi" Type="VI" URL="../SubVIs/measure_current_keithley-2400.vi"/>
-		<Item Name="measure_current_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_current_keithley-2450.vi"/>
-		<Item Name="measure_j-t.vi" Type="VI" URL="../SubVIs/measure_j-t.vi"/>
-		<Item Name="measure_j-t_keithley-2450.vi" Type="VI" URL="../SubVIs/measure_j-t_keithley-2450.vi"/>
-		<Item Name="measure_j-v.vi" Type="VI" URL="../SubVIs/measure_j-v.vi"/>
-		<Item Name="measure_max-power-stabilisation.vi" Type="VI" URL="../SubVIs/measure_max-power-stabilisation.vi"/>
-		<Item Name="mpps_keithley-2400.vi" Type="VI" URL="../SubVIs/mpps_keithley-2400.vi"/>
+		<Item Name="measure_current_keithley-2450_python.vi" Type="VI" URL="../SubVIs/measure_current_keithley-2450_python.vi"/>
+		<Item Name="measure_jt.vi" Type="VI" URL="../SubVIs/measure_jt.vi"/>
+		<Item Name="measure_jv.vi" Type="VI" URL="../SubVIs/measure_jv.vi"/>
+		<Item Name="measure_mpps.vi" Type="VI" URL="../SubVIs/measure_mpps.vi"/>
+		<Item Name="mpps_data_to_plot.vi" Type="VI" URL="../SubVIs/mpps_data_to_plot.vi"/>
 		<Item Name="mpps_keithley-2400_python.vi" Type="VI" URL="../SubVIs/mpps_keithley-2400_python.vi"/>
 		<Item Name="mpps_keithley-2450_python.vi" Type="VI" URL="../SubVIs/mpps_keithley-2450_python.vi"/>
-		<Item Name="nplc_for_j-v_scan.ctl" Type="VI" URL="../TypeDefs/nplc_for_j-v_scan.ctl"/>
+		<Item Name="mppt_keithley-2400_python.vi" Type="VI" URL="../SubVIs/mppt_keithley-2400_python.vi"/>
+		<Item Name="mppt_keithley-2450_python.vi" Type="VI" URL="../SubVIs/mppt_keithley-2450_python.vi"/>
 		<Item Name="remove_duplicates_by_column.vi" Type="VI" URL="../SubVIs/remove_duplicates_by_column.vi"/>
 		<Item Name="save_device_details.vi" Type="VI" URL="../SubVIs/save_device_details.vi"/>
-		<Item Name="save_j-t_data_v2.vi" Type="VI" URL="../SubVIs/save_j-t_data_v2.vi"/>
+		<Item Name="save_jt_data.vi" Type="VI" URL="../SubVIs/save_jt_data.vi"/>
 		<Item Name="save_jv_data.vi" Type="VI" URL="../SubVIs/save_jv_data.vi"/>
-		<Item Name="save_max_p_Data.vi" Type="VI" URL="../SubVIs/save_max_p_Data.vi"/>
 		<Item Name="save_scan_settings.vi" Type="VI" URL="../SubVIs/save_scan_settings.vi"/>
 		<Item Name="save_stabilisation_data.vi" Type="VI" URL="../SubVIs/save_stabilisation_data.vi"/>
 		<Item Name="scan_settings.ctl" Type="VI" URL="../TypeDefs/scan_settings.ctl"/>
-		<Item Name="Send_lamp_power_supply_command.vi" Type="VI" URL="../SubVIs/Send_lamp_power_supply_command.vi"/>
-		<Item Name="Settings Boolean.ctl" Type="VI" URL="../TypeDefs/Settings Boolean.ctl"/>
+		<Item Name="send_lamp_psu_command.vi" Type="VI" URL="../SubVIs/send_lamp_psu_command.vi"/>
+		<Item Name="set_mux.vi" Type="VI" URL="../SubVIs/set_mux.vi"/>
 		<Item Name="sort_2d_cell_details_array.vi" Type="VI" URL="../SubVIs/sort_2d_cell_details_array.vi"/>
 		<Item Name="sort_scan_settings.vi" Type="VI" URL="../SubVIs/sort_scan_settings.vi"/>
-		<Item Name="State Enumerate Ring.ctl" Type="VI" URL="../TypeDefs/State Enumerate Ring.ctl"/>
-		<Item Name="time_left_calculator.vi" Type="VI" URL="../SubVIs/time_left_calculator.vi"/>
-		<Item Name="Update Meas Type to Best J-t Scan.vi" Type="VI" URL="../SubVIs/Update Meas Type to Best J-t Scan.vi"/>
-		<Item Name="Update Meas Type to Best MaxPowStab.vi" Type="VI" URL="../SubVIs/Update Meas Type to Best MaxPowStab.vi"/>
-		<Item Name="Update Meas Type to J-t Scan.vi" Type="VI" URL="../SubVIs/Update Meas Type to J-t Scan.vi"/>
-		<Item Name="Update Meas Type to JV Scan.vi" Type="VI" URL="../SubVIs/Update Meas Type to JV Scan.vi"/>
-		<Item Name="Update Meas Type to MaxPowStab.vi" Type="VI" URL="../SubVIs/Update Meas Type to MaxPowStab.vi"/>
-		<Item Name="Update Meas Type to Repeat JV Scan for best.vi" Type="VI" URL="../SubVIs/Update Meas Type to Repeat JV Scan for best.vi"/>
+		<Item Name="state_enumerate_ring.ctl" Type="VI" URL="../TypeDefs/state_enumerate_ring.ctl"/>
 		<Item Name="update_jv_log.vi" Type="VI" URL="../SubVIs/update_jv_log.vi"/>
+		<Item Name="update_meas_type_to_jt.vi" Type="VI" URL="../SubVIs/update_meas_type_to_jt.vi"/>
+		<Item Name="update_meas_type_to_jv.vi" Type="VI" URL="../SubVIs/update_meas_type_to_jv.vi"/>
+		<Item Name="update_meas_type_to_mpps.vi" Type="VI" URL="../SubVIs/update_meas_type_to_mpps.vi"/>
+		<Item Name="update_meas_type_to_repeat-jv-for-best.vi" Type="VI" URL="../SubVIs/update_meas_type_to_repeat-jv-for-best.vi"/>
 		<Item Name="upload_details_from_spreadsheet.vi" Type="VI" URL="../SubVIs/upload_details_from_spreadsheet.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="instr.lib" Type="Folder">
@@ -171,16 +156,8 @@
 				<Item Name="Write To Spreadsheet File (string).vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Write To Spreadsheet File (string).vi"/>
 				<Item Name="Write To Spreadsheet File.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/file.llb/Write To Spreadsheet File.vi"/>
 			</Item>
-			<Item Name="Add dark EQE measurement to queue.vi" Type="VI" URL="../SubVIs/Add dark EQE measurement to queue.vi"/>
-			<Item Name="check_keithley-2400_is_connected.vi" Type="VI" URL="../SubVIs/check_keithley-2400_is_connected.vi"/>
-			<Item Name="check_keithley-2450_is_connected.vi" Type="VI" URL="../SubVIs/check_keithley-2450_is_connected.vi"/>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
-			<Item Name="measure_current_keithley-2450_python.vi" Type="VI" URL="../SubVIs/measure_current_keithley-2450_python.vi"/>
-			<Item Name="mppt_keithley-2400_python.vi" Type="VI" URL="../SubVIs/mppt_keithley-2400_python.vi"/>
-			<Item Name="mppt_keithley-2450_python.vi" Type="VI" URL="../SubVIs/mppt_keithley-2450_python.vi"/>
 			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files (x86)/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
-			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
-			<Item Name="set_multiplexor.vi" Type="VI" URL="../SubVIs/set_multiplexor.vi"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="Automated PV Measurement" Type="EXE">
