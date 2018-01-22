@@ -108,6 +108,9 @@ keithley2450.write(':SOUR:CLE:AUTO OFF')
 # Set source function to voltage
 keithley2450.write(':SOUR:FUNC VOLT')
 
+# Set output-off mode to high impedance
+keithley2450.write(':OUTP:SMOD HIMP')
+
 # Set source readback to on (measure the source voltage when measuring the
 # source current)
 keithley2450.write(':SOUR:VOLT:READ:BACK ON')
@@ -179,7 +182,8 @@ def jt_scan(V_arr, t_step, condition):
 
         # Take readings continuously for t_step
         while time.time() - t_step_start < t_step:
-            data = keithley2450.query(':MEAS:CURR? SEC, SOUR, READ')
+            data = keithley2450.query(
+                ':MEAS:CURR? "defbuffer1", REL, SOUR, READ')
             data = data.split(',')
             data = [float(item) for item in data]
             ts.append(data[0])
@@ -202,6 +206,9 @@ keithley2450.write('OUTP OFF')
 if condition == 'light':
     # Close the shutter
     keithley2450.write(':DIG:LINE1:STAT 0')
+
+# Clear measurement buffer
+keithley2450.write(':TRAC:CLE "defbuffer1"')
 
 # Convert to numpy array
 jt_data_arr = np.array(jt_data).T

@@ -83,6 +83,9 @@ keithley2450.write(':SOUR:CLE:AUTO OFF')
 # Set source function to voltage
 keithley2450.write(':SOUR:FUNC VOLT')
 
+# Set output-off mode to high impedance
+keithley2450.write(':OUTP:SMOD HIMP')
+
 # Set source readback to on (measure the source voltage when measuring the
 # source current)
 keithley2450.write(':SOUR:VOLT:READ:BACK ON')
@@ -154,7 +157,7 @@ def track_max_power(V, t_track):
 
     # Measure at V in the dark for 3s
     while time.time() - t_start < 3:
-        data = keithley2450.query(':MEAS:CURR? SEC, SOUR, READ')
+        data = keithley2450.query(':MEAS:CURR? "defbuffer1", REL, SOUR, READ')
         data = data.split(',')
         data = [float(item) for item in data]
         ts.append(data[0])
@@ -169,7 +172,7 @@ def track_max_power(V, t_track):
 
     # Measure at V in the light for t_track
     while time.time() - t_start < t_track + 3:
-        data = keithley2450.query(':MEAS:CURR? SEC, SOUR, READ')
+        data = keithley2450.query(':MEAS:CURR? "defbuffer1", REL, SOUR, READ')
         data = data.split(',')
         data = [float(item) for item in data]
         ts.append(data[0])
@@ -193,6 +196,9 @@ keithley2450.write('OUTP OFF')
 
 # Close the shutter
 keithley2450.write(':DIG:LINE1:STAT 0')
+
+# Clear measurement buffer
+keithley2450.write(':TRAC:CLE "defbuffer1"')
 
 # Format and save the results
 np.savetxt(

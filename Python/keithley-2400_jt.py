@@ -105,6 +105,9 @@ keithley2400.write(':SOUR:CLE:AUTO OFF')
 # Set source mode to voltage
 keithley2400.write(':SOUR:FUNC VOLT')
 
+# Set output-off mode to high impedance
+keithley2400.write(':OUTP:SMOD HIMP')
+
 # Set the voltage range
 keithley2400.write(':SOUR:VOLT:RANG {}'.format(V_range))
 

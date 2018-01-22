@@ -170,6 +170,7 @@ def stabilisation(t_stabilisation, stab_mode, stab_level, dark_stab, condition,
     # Configure output depending on stabilisation mode
     if stab_mode == 'V':
         keithley2450.write(':SOUR:FUNC VOLT')
+        keithley2450.write(':OUTP:SMOD HIMP')
         keithley2450.write(':SOUR:VOLT:READ:BACK ON')
         keithley2450.write(':SOUR:VOLT:RANG {}'.format(V_range))
         keithley2450.write(':SOUR:VOLT:DEL {}'.format(t_meas))
@@ -178,6 +179,7 @@ def stabilisation(t_stabilisation, stab_mode, stab_level, dark_stab, condition,
         keithley2450.write(':SOUR:VOLT {}'.format(stab_level))
     elif stab_mode == 'I':
         keithley2450.write(':SOUR:FUNC CURR')
+        keithley2450.write(':OUTP:SMOD HIMP')
         keithley2450.write(':SOUR:CURR:READ:BACK ON')
         keithley2450.write(':SOUR:CURR:RANG {}'.format(I_range))
         keithley2450.write(':SOUR:CURR:DEL {}'.format(t_meas))
@@ -198,7 +200,8 @@ def stabilisation(t_stabilisation, stab_mode, stab_level, dark_stab, condition,
     # Take readings continuously for t_stabilisation depending on mode
     if stab_mode == 'V':
         while time.time() - t_start < t_stabilisation:
-            data = keithley2450.query(':MEAS:CURR? SEC, SOUR, READ')
+            data = keithley2450.query(
+                ':MEAS:CURR? "defbuffer1", REL, SOUR, READ')
             data = data.split(',')
             data = [float(item) for item in data]
             ts.append(data[0])
@@ -207,13 +210,17 @@ def stabilisation(t_stabilisation, stab_mode, stab_level, dark_stab, condition,
             Js.append(data[2] * 1000 / A)
     elif stab_mode == 'I':
         while time.time() - t_start < t_stabilisation:
-            data = keithley2450.query(':MEAS:VOLT? SEC, SOUR, READ')
+            data = keithley2450.query(
+                ':MEAS:CURR? "defbuffer1", REL, SOUR, READ')
             data = data.split(',')
             data = [float(item) for item in data]
             ts.append(data[0])
             Is.append(data[1])
             Vs.append(data[2])
             Js.append(data[2] * 1000 / A)
+
+    # Clear measurement buffer
+    keithley2450.write(':TRAC:CLE "defbuffer1"')
 
     return ts, Vs, Is, Js
 

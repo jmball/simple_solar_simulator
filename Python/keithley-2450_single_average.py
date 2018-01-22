@@ -48,6 +48,9 @@ keithley2450.write(':SOUR:CLE:AUTO OFF')
 # Set source function to voltage
 keithley2450.write(':SOUR:FUNC VOLT')
 
+# Set output-off mode to high impedance
+keithley2450.write(':OUTP:SMOD HIMP')
+
 # Set source readback to on (measure the source voltage when measuring the
 # source current)
 keithley2450.write(':SOUR:VOLT:READ:BACK ON')
@@ -85,7 +88,7 @@ t_start = time.time()
 
 # Measure current for 2 seconds
 while time.time() - t_start < 2:
-    I = float(keithley2450.query(':MEAS:CURR? READ'))
+    I = float(keithley2450.query(':MEAS:CURR? "defbuffer1", READ'))
     Is.append(I)
 
 # Disable the output
@@ -93,6 +96,9 @@ keithley2450.write('OUTP OFF')
 
 # Close the shutter
 keithley2450.write(':DIG:LINE1:STAT 0')
+
+# Clear measurement buffer
+keithley2450.write(':TRAC:CLE "defbuffer1"')
 
 # Calculate and print average current density
 print(sum(Is) / len(Is))
