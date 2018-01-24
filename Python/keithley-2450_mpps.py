@@ -74,8 +74,9 @@ keithley2450.write('OUTP OFF')
 # Enable 4-wire sense measurement
 keithley2450.write(':SYST:RSEN ON')
 
-# Set digital I/O line 1 as a digital output line
+# Set digital I/O line 1 as output, and close shutter
 keithley2450.write(':DIG:LINE1:MODE DIG, OUT')
+keithley2450.write(':DIG:LINE1:STAT 1')
 
 # Don't auto-off source after measurement
 keithley2450.write(':SOUR:CLE:AUTO OFF')
@@ -168,7 +169,7 @@ def track_max_power(V, t_track):
         PCEs.append(np.absolute(data[1] * data[2] * 1000 / (suns * A)))
 
     # Open the shutter of the solar simulator
-    keithley2450.write(':DIG:LINE1:STAT 1')
+    keithley2450.write(':DIG:LINE1:STAT 0')
 
     # Measure at V in the light for t_track
     while time.time() - t_start < t_track + 3:
@@ -195,7 +196,7 @@ mppt_results = track_max_power(V_start, t_track)
 keithley2450.write('OUTP OFF')
 
 # Close the shutter
-keithley2450.write(':DIG:LINE1:STAT 0')
+keithley2450.write(':DIG:LINE1:STAT 1')
 
 # Clear measurement buffer
 keithley2450.write(':TRAC:CLE "defbuffer1"')
@@ -209,3 +210,6 @@ np.savetxt(
     newline='\r\n',
     header='Time (s)\tV\tI (A)\tJ (mA/cm^2)\tP (W)\tPCE (%)',
     comments='')
+
+# Close the visa resource manager
+keithley2450.close()

@@ -73,7 +73,7 @@ nplc = args.nplc
 condition = args.condition
 suns = args.num_of_suns
 A = args.A
-points = int(1 + (np.absolute(V_start - V_stop) / V_step))
+points = int(round(1 + (np.absolute(V_start - V_stop) / V_step)))
 V_range = np.max([np.absolute(V_start), np.absolute(V_stop)])
 
 # Make voltage array
@@ -235,3 +235,6 @@ np.savetxt(
     newline='\r\n',
     header='Time (s)\tV\tI (A)\tJ (mA/cm^2)',
     comments='')
+
+# Close the visa resource manager
+keithley2400.close()

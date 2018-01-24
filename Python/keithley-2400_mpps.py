@@ -205,3 +205,6 @@ np.savetxt(
     newline='\r\n',
     header='Time (s)\tV\tI (A)\tJ (mA/cm^2)\tP (W)\tPCE (%)',
     comments='')
+
+# Close the visa resource manager
+keithley2400.close()

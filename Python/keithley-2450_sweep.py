@@ -4,7 +4,7 @@ import time
 import numpy as np
 import scipy as sp
 
-import sp.interpolate
+import scipy.interpolate
 import visa
 
 # Assign the VISA resource to a variable and reset Keithley 2450
@@ -99,7 +99,7 @@ condition = args.condition
 dark_stab = args.dark_stabilisation
 A = args.A
 suns = args.suns
-points = int(1 + (np.absolute(V_start - V_stop) / V_step))
+points = int(round(1 + (np.absolute(V_start - V_stop) / V_step)))
 V_range = np.max([np.absolute(V_start), np.absolute(V_stop)])
 
 # Set current measurement range to 10 times SQ limit for 0.5 eV
@@ -112,8 +112,9 @@ keithley2450.write('OUTP OFF')
 # Enable 4-wire sense measurement
 keithley2450.write(':SYST:RSEN ON')
 
-# Set digital I/O line 1 as a digital output line
+# Set digital I/O line 1 as output, and close shutter
 keithley2450.write(':DIG:LINE1:MODE DIG, OUT')
+keithley2450.write(':DIG:LINE1:STAT 1')
 
 # Set the integration filter
 keithley2450.write(':SENS:CURR:NPLC {}'.format(nplc))
@@ -189,7 +190,7 @@ def stabilisation(t_stabilisation, stab_mode, stab_level, dark_stab, condition,
 
     if condition == 'light':
         # Open the shutter of the solar simulator
-        keithley2450.write(':DIG:LINE1:STAT 1')
+        keithley2450.write(':DIG:LINE1:STAT 0')
 
     # Turn on output
     keithley2450.write('OUTP ON')
@@ -255,7 +256,7 @@ keithley2450.write(
 
 # Open the shutter of the solar simulator if needed
 if condition == 'light':
-    keithley2450.write(':DIG:LINE1:STAT 1')
+    keithley2450.write(':DIG:LINE1:STAT 0')
 
 # Initiate the sweep and wait until finished
 keithley2450.write(':INIT')
@@ -263,7 +264,7 @@ keithley2450.write('*WAI')
 
 # Close the shutter of the solar simulator if needed
 if condition == 'light':
-    keithley2450.write(':DIG:LINE1:STAT 0')
+    keithley2450.write(':DIG:LINE1:STAT 1')
 
 # Format and save stabilisation data
 if stab_data is not None:
@@ -276,6 +277,9 @@ if stab_data is not None:
         header='Time (s)\tV\tI (A)\tJ (mA/cm^2)',
         comments='')
 
+# sleep before reading buffer
+time.sleep(2)
+    
 # Read J-V data from buffer
 iv_data = keithley2450.query(
     ':TRAC:DATA? 1, {}, "defbuffer1", REL, SOUR, READ'.format(2 * points - 1))
@@ -284,11 +288,14 @@ iv_data = keithley2450.query(
 iv_data = iv_data.split(",")
 iv_data[len(iv_data) - 1] = iv_data[len(iv_data) - 1].strip("\n")
 
+# Clear measurement buffer
+keithley2450.write(':TRAC:CLE "defbuffer1"')
+
 # Convert to numpy array
 ts = iv_data[::3]
 Vs = iv_data[1::3]
 Is = iv_data[2::3]
-iv_data_arr = np.array([ts, Vs, Is]).T
+iv_data_arr = np.array([ts, Vs, Is], dtype=float).T
 Js = iv_data_arr[:, 2] / A
 iv_data_arr = np.insert(iv_data_arr, iv_data_arr.shape[1], Js, axis=1)
 
@@ -318,8 +325,8 @@ dpdv_HL = np.gradient(p_HL, dv_HL)
 dpdv_LH = np.gradient(p_LH, dv_LH)
 f_jv_HL = sp.interpolate.interp1d(v_HL, j_HL, 'cubic')
 f_jv_LH = sp.interpolate.interp1d(v_LH, j_LH, 'cubic')
-f_vj_HL = sp.interpolate.interp1d(j_HL, v_HL, 'cubic')
-f_vj_LH = sp.interpolate.interp1d(j_LH, v_LH, 'cubic')
+f_vj_HL = sp.interpolate.interp1d(j_HL, v_HL, 'linear')
+f_vj_LH = sp.interpolate.interp1d(j_LH, v_LH, 'linear')
 f_dpdv_HL = sp.interpolate.interp1d(dpdv_HL, v_HL)
 f_dpdv_LH = sp.interpolate.interp1d(dpdv_LH, v_LH)
 rate_HL = dv_HL / dt_HL
@@ -352,16 +359,16 @@ np.savetxt(
     newline='\r\n',
     header='Time (s)\tV\tI (A)\tJ (mA/cm^2)',
     footer=('\r\n'
-            'jsc = {0} mA/cm^2\r\n'
-            'voc = {1} V\r\n'
-            'ff = {2}\r\n'
-            'pce = {4} %\r\n'
-            'vmp = {5} V\r\n'
-            'jmp = {6} mA/cm^2\r\n'
-            'pmax = {7} mW/cm^2\r\n'
-            'scan rate = {8} V/s\r\n'
-            'area = {9} cm^2\r\n'
-            'number of suns = {10}').format(jsc_LH, voc_LH, ff_LH, pce_LH,
+            'jsc = {} mA/cm^2\r\n'
+            'voc = {} V\r\n'
+            'ff = {}\r\n'
+            'pce = {} %\r\n'
+            'vmp = {} V\r\n'
+            'jmp = {} mA/cm^2\r\n'
+            'pmax = {} mW/cm^2\r\n'
+            'scan rate = {} V/s\r\n'
+            'area = {} cm^2\r\n'
+            'number of suns = {}').format(jsc_LH, voc_LH, ff_LH, pce_LH,
                                             vmp_LH, jmp_LH, pmax_LH, rate_LH,
                                             A, suns),
     comments='')
@@ -373,16 +380,16 @@ np.savetxt(
     newline='\r\n',
     header='Time (s)\tV\tI (A)\tJ (mA/cm^2)',
     footer=('\r\n'
-            'jsc = {0} mA/cm^2\r\n'
-            'voc = {1} V\r\n'
-            'ff = {2}\r\n'
-            'pce = {4} %\r\n'
-            'vmp = {5} V\r\n'
-            'jmp = {6} mA/cm^2\r\n'
-            'pmax = {7} mW/cm^2\r\n'
-            'scan rate = {8} V/s\r\n'
-            'area = {9} cm^2\r\n'
-            'number of suns = {10}').format(jsc_HL, voc_HL, ff_HL, pce_HL,
+            'jsc = {} mA/cm^2\r\n'
+            'voc = {} V\r\n'
+            'ff = {}\r\n'
+            'pce = {} %\r\n'
+            'vmp = {} V\r\n'
+            'jmp = {} mA/cm^2\r\n'
+            'pmax = {} mW/cm^2\r\n'
+            'scan rate = {} V/s\r\n'
+            'area = {} cm^2\r\n'
+            'number of suns = {}').format(jsc_HL, voc_HL, ff_HL, pce_HL,
                                             vmp_HL, jmp_HL, pmax_HL, rate_HL,
                                             A, suns),
     comments='')
@@ -398,3 +405,6 @@ else:
           t_meas, vmp_HL, rate_HL, path_HL, "HL", jsc_LH, voc_LH, ff_LH,
           pce_LH, A, stab_level, t_stabilisation, t_meas, vmp_LH, rate_LH,
           path_LH, "LH")
+
+# Close the visa resource manager
+keithley2450.close()
