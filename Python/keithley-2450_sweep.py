@@ -104,7 +104,7 @@ V_range = np.max([np.absolute(V_start), np.absolute(V_stop)])
 
 # Set current measurement range to 10 times SQ limit for 0.5 eV
 # bandgap for the given area
-I_range = 10 * 0.065 * A
+I_range = 100 * 0.065 * A
 
 # Turn off output
 keithley2450.write('OUTP OFF')

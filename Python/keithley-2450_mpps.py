@@ -59,7 +59,7 @@ V_range = np.absolute(V_start)
 
 # Set current measurement range to 10 times SQ limit for 0.5 eV
 # bandgap for the given area
-I_range = 10 * 0.065 * A
+I_range = 100 * 0.065 * A
 
 # Assign the VISA resource to a variable and reset Keithley 2450
 rm = visa.ResourceManager()
@@ -78,9 +78,6 @@ keithley2450.write(':SYST:RSEN ON')
 keithley2450.write(':DIG:LINE1:MODE DIG, OUT')
 keithley2450.write(':DIG:LINE1:STAT 1')
 
-# Don't auto-off source after measurement
-keithley2450.write(':SOUR:CLE:AUTO OFF')
-
 # Set source function to voltage
 keithley2450.write(':SOUR:FUNC VOLT')
 
@@ -98,7 +95,7 @@ keithley2450.write(':SOUR:VOLT:RANG {}'.format(V_range))
 keithley2450.write(':SOUR:VOLT:DEL {}'.format(t_settling))
 
 # Set measurement function to current
-keithley2450.write(':SOUR:FUNC "CURR"')
+keithley2450.write(':SENS:FUNC "CURR"')
 
 # Set current measurement range
 keithley2450.write(':SENS:CURR:RANG {}'.format(I_range))

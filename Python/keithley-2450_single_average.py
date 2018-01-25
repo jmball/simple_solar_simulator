@@ -43,9 +43,6 @@ keithley2450.write(':SYST:RSEN ON')
 keithley2450.write(':DIG:LINE1:MODE DIG, OUT')
 keithley2450.write(':DIG:LINE1:STAT 1')
 
-# Don't auto-off source after measurement
-keithley2450.write(':SOUR:CLE:AUTO OFF')
-
 # Set source function to voltage
 keithley2450.write(':SOUR:FUNC VOLT')
 
@@ -63,13 +60,13 @@ keithley2450.write(':SOUR:VOLT:RANG:AUTO ON')
 keithley2450.write(':SOUR:VOLT:DEL {}'.format(t_settling))
 
 # Set measurement function to current
-keithley2450.write(':SOUR:FUNC "CURR"')
+keithley2450.write(':SENS:FUNC "CURR"')
 
 # Enable current measurement autoranging
 keithley2450.write(':SENS:CURR:RANG:AUTO ON')
 
 # Set compliance current
-keithley2450.write(':SENS:CURR:PROT {}'.format(I_comp))
+keithley2450.write(':SENS:CURR:RANG {}'.format(I_comp))
 
 # Set the integration filter
 keithley2450.write(':SENS:CURR:NPLC {}'.format(nplc))

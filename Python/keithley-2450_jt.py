@@ -103,9 +103,6 @@ keithley2450.write(':SYST:RSEN ON')
 keithley2450.write(':DIG:LINE1:MODE DIG, OUT')
 keithley2450.write(':DIG:LINE1:STAT 1')
 
-# Don't auto-off source after measurement
-keithley2450.write(':SOUR:CLE:AUTO OFF')
-
 # Set source function to voltage
 keithley2450.write(':SOUR:FUNC VOLT')
 
@@ -123,7 +120,7 @@ keithley2450.write(':SOUR:VOLT:RANG {}'.format(V_range))
 keithley2450.write(':SOUR:VOLT:DEL {}'.format(t_settling))
 
 # Set measurement function to current
-keithley2450.write(':SOUR:FUNC "CURR"')
+keithley2450.write(':SENS:FUNC "CURR"')
 
 # Set current measurement range
 keithley2450.write(':SENS:CURR:RANG {}'.format(I_range))
