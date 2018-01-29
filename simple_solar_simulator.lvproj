@@ -167,316 +167,46 @@
 			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files (x86)/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
-			<Item Name="Automated PV Measurement" Type="EXE">
+			<Item Name="Solar Simulator" Type="EXE">
 				<Property Name="App_copyErrors" Type="Bool">true</Property>
-				<Property Name="App_INI_aliasGUID" Type="Str">{F52AF132-3EF5-4D47-891B-7683AD0EFAB7}</Property>
-				<Property Name="App_INI_GUID" Type="Str">{371BE36C-DA84-4831-8722-351A6426FAD3}</Property>
+				<Property Name="App_INI_aliasGUID" Type="Str">{C9215006-BDCF-4AF5-AC99-3B754DBDD006}</Property>
+				<Property Name="App_INI_GUID" Type="Str">{0A531CB3-33D9-4F42-884A-8E4B2F0E8D2F}</Property>
 				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
-				<Property Name="Bld_buildCacheID" Type="Str">{3D0434C3-655D-4307-995F-6691C099E444}</Property>
-				<Property Name="Bld_buildSpecName" Type="Str">Automated PV Measurement</Property>
-				<Property Name="Bld_compilerOptLevel" Type="Int">0</Property>
+				<Property Name="Bld_autoIncrement" Type="Bool">true</Property>
+				<Property Name="Bld_buildCacheID" Type="Str">{E61E11B7-2238-4B3A-AED5-AA997AEFC68B}</Property>
+				<Property Name="Bld_buildSpecName" Type="Str">Solar Simulator</Property>
+				<Property Name="Bld_excludeInlineSubVIs" Type="Bool">true</Property>
 				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
 				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
-				<Property Name="Bld_localDestDir" Type="Path">../builds/NI_AB_PROJECTNAME/Automated PV Measurement</Property>
-				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
+				<Property Name="Bld_localDestDir" Type="Path">../builds/Solar Simulator</Property>
+				<Property Name="Bld_localDestDirType" Type="Str">relativeToProject</Property>
 				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
-				<Property Name="Bld_previewCacheID" Type="Str">{65218141-FB31-4B09-A2F6-E5C08397FD8D}</Property>
-				<Property Name="Bld_version.major" Type="Int">2</Property>
-				<Property Name="Destination[0].destName" Type="Str">Automated PV Measurement_v2.0.exe</Property>
-				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/Automated PV Measurement/Automated PV Measurement_v2.0.exe</Property>
-				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
-				<Property Name="Destination[0].type" Type="Str">App</Property>
-				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
-				<Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/Automated PV Measurement/data</Property>
-				<Property Name="DestinationCount" Type="Int">2</Property>
-				<Property Name="Source[0].itemID" Type="Str">{C99FC351-ECED-4B43-90C1-3B81C958B188}</Property>
-				<Property Name="Source[0].type" Type="Str">Container</Property>
-				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[1].itemID" Type="Ref">/My Computer/main.vi</Property>
-				<Property Name="Source[1].properties[0].type" Type="Str">Window has title bar</Property>
-				<Property Name="Source[1].properties[0].value" Type="Bool">true</Property>
-				<Property Name="Source[1].properties[1].type" Type="Str">Show menu bar</Property>
-				<Property Name="Source[1].properties[1].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[10].type" Type="Str">Allow debugging</Property>
-				<Property Name="Source[1].properties[10].value" Type="Bool">true</Property>
-				<Property Name="Source[1].properties[11].type" Type="Str">Remove front panel</Property>
-				<Property Name="Source[1].properties[11].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[12].type" Type="Str">Remove block diagram</Property>
-				<Property Name="Source[1].properties[12].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[2].type" Type="Str">Show vertical scroll bar</Property>
-				<Property Name="Source[1].properties[2].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[3].type" Type="Str">Show horizontal scroll bar</Property>
-				<Property Name="Source[1].properties[3].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[4].type" Type="Str">Show toolbar</Property>
-				<Property Name="Source[1].properties[4].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[5].type" Type="Str">Show Abort button</Property>
-				<Property Name="Source[1].properties[5].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[6].type" Type="Str">Show fp when called</Property>
-				<Property Name="Source[1].properties[6].value" Type="Bool">true</Property>
-				<Property Name="Source[1].properties[7].type" Type="Str">Window behavior</Property>
-				<Property Name="Source[1].properties[7].value" Type="Str">Modal</Property>
-				<Property Name="Source[1].properties[8].type" Type="Str">Allow user to close window</Property>
-				<Property Name="Source[1].properties[8].value" Type="Bool">true</Property>
-				<Property Name="Source[1].properties[9].type" Type="Str">Window run-time position</Property>
-				<Property Name="Source[1].properties[9].value" Type="Str">Maximized</Property>
-				<Property Name="Source[1].propertiesCount" Type="Int">13</Property>
-				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
-				<Property Name="Source[1].type" Type="Str">VI</Property>
-				<Property Name="Source[2].itemID" Type="Ref"></Property>
-				<Property Name="Source[2].properties[0].type" Type="Str">Show vertical scroll bar</Property>
-				<Property Name="Source[2].properties[0].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[1].type" Type="Str">Show horizontal scroll bar</Property>
-				<Property Name="Source[2].properties[1].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[10].type" Type="Str">Show fp when called</Property>
-				<Property Name="Source[2].properties[10].value" Type="Bool">true</Property>
-				<Property Name="Source[2].properties[11].type" Type="Str">Window behavior</Property>
-				<Property Name="Source[2].properties[11].value" Type="Str">Default</Property>
-				<Property Name="Source[2].properties[12].type" Type="Str">Allow user to close window</Property>
-				<Property Name="Source[2].properties[12].value" Type="Bool">true</Property>
-				<Property Name="Source[2].properties[13].type" Type="Str">Allow debugging</Property>
-				<Property Name="Source[2].properties[13].value" Type="Bool">true</Property>
-				<Property Name="Source[2].properties[2].type" Type="Str">Show menu bar</Property>
-				<Property Name="Source[2].properties[2].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[3].type" Type="Str">Show toolbar</Property>
-				<Property Name="Source[2].properties[3].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[4].type" Type="Str">Remove front panel</Property>
-				<Property Name="Source[2].properties[4].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[5].type" Type="Str">Remove block diagram</Property>
-				<Property Name="Source[2].properties[5].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[6].type" Type="Str">Window has title bar</Property>
-				<Property Name="Source[2].properties[6].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[7].type" Type="Str">Show Abort button</Property>
-				<Property Name="Source[2].properties[7].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[8].type" Type="Str">Window run-time position</Property>
-				<Property Name="Source[2].properties[8].value" Type="Str">Maximized</Property>
-				<Property Name="Source[2].properties[9].type" Type="Str">Run when opened</Property>
-				<Property Name="Source[2].properties[9].value" Type="Bool">true</Property>
-				<Property Name="Source[2].propertiesCount" Type="Int">14</Property>
-				<Property Name="Source[2].type" Type="Str">VI</Property>
-				<Property Name="SourceCount" Type="Int">3</Property>
-				<Property Name="TgtF_companyName" Type="Str">Istituto Italiano di Tecnologia</Property>
-				<Property Name="TgtF_fileDescription" Type="Str">Automated PV Measurement</Property>
-				<Property Name="TgtF_internalName" Type="Str">Automated PV Measurement</Property>
-				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2016 Istituto Italiano di Tecnologia</Property>
-				<Property Name="TgtF_productName" Type="Str">Automated PV Measurement</Property>
-				<Property Name="TgtF_targetfileGUID" Type="Str">{1554B717-9B6C-4835-B385-35C66BDF09D2}</Property>
-				<Property Name="TgtF_targetfileName" Type="Str">Automated PV Measurement_v2.0.exe</Property>
-			</Item>
-			<Item Name="Automated PV Measurement v2.1.8" Type="EXE">
-				<Property Name="App_copyErrors" Type="Bool">true</Property>
-				<Property Name="App_INI_aliasGUID" Type="Str">{05D4B823-5183-494D-A4B6-4194B1A3FBD5}</Property>
-				<Property Name="App_INI_GUID" Type="Str">{83079F92-76F1-4213-8422-CD470FEE9F49}</Property>
-				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
-				<Property Name="Bld_buildCacheID" Type="Str">{B0D3DA73-393F-4BEC-B4E4-932AF229A9C4}</Property>
-				<Property Name="Bld_buildSpecName" Type="Str">Automated PV Measurement v2.1.8</Property>
-				<Property Name="Bld_compilerOptLevel" Type="Int">0</Property>
-				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
-				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
-				<Property Name="Bld_localDestDir" Type="Path">../Automated_PV_Measurement/builds/Automated PV Measurement v2.1.8</Property>
-				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
-				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
-				<Property Name="Bld_previewCacheID" Type="Str">{CE5D3E30-9F6B-4248-BD9A-2F8A1285AFCC}</Property>
-				<Property Name="Bld_version.major" Type="Int">2</Property>
-				<Property Name="Bld_version.minor" Type="Int">1</Property>
-				<Property Name="Bld_version.patch" Type="Int">8</Property>
-				<Property Name="Destination[0].destName" Type="Str">Automated PV Measurement v2.1.8.exe</Property>
-				<Property Name="Destination[0].path" Type="Path">../Automated_PV_Measurement/builds/Automated PV Measurement v2.1.8/Automated PV Measurement v2.1.8.exe</Property>
-				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
-				<Property Name="Destination[0].type" Type="Str">App</Property>
-				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
-				<Property Name="Destination[1].path" Type="Path">../Automated_PV_Measurement/builds/Automated PV Measurement v2.1.8/data</Property>
-				<Property Name="DestinationCount" Type="Int">2</Property>
-				<Property Name="Source[0].itemID" Type="Str">{9A20BFBD-E37E-4235-BDC2-BC5FA8AA6779}</Property>
-				<Property Name="Source[0].type" Type="Str">Container</Property>
-				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[1].itemID" Type="Ref">/My Computer/main.vi</Property>
-				<Property Name="Source[1].properties[0].type" Type="Str">Window has title bar</Property>
-				<Property Name="Source[1].properties[0].value" Type="Bool">true</Property>
-				<Property Name="Source[1].properties[1].type" Type="Str">Show menu bar</Property>
-				<Property Name="Source[1].properties[1].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[10].type" Type="Str">Allow debugging</Property>
-				<Property Name="Source[1].properties[10].value" Type="Bool">true</Property>
-				<Property Name="Source[1].properties[11].type" Type="Str">Remove front panel</Property>
-				<Property Name="Source[1].properties[11].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[12].type" Type="Str">Remove block diagram</Property>
-				<Property Name="Source[1].properties[12].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[2].type" Type="Str">Show vertical scroll bar</Property>
-				<Property Name="Source[1].properties[2].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[3].type" Type="Str">Show horizontal scroll bar</Property>
-				<Property Name="Source[1].properties[3].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[4].type" Type="Str">Show toolbar</Property>
-				<Property Name="Source[1].properties[4].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[5].type" Type="Str">Show Abort button</Property>
-				<Property Name="Source[1].properties[5].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[6].type" Type="Str">Show fp when called</Property>
-				<Property Name="Source[1].properties[6].value" Type="Bool">true</Property>
-				<Property Name="Source[1].properties[7].type" Type="Str">Window behavior</Property>
-				<Property Name="Source[1].properties[7].value" Type="Str">Modal</Property>
-				<Property Name="Source[1].properties[8].type" Type="Str">Allow user to close window</Property>
-				<Property Name="Source[1].properties[8].value" Type="Bool">true</Property>
-				<Property Name="Source[1].properties[9].type" Type="Str">Window run-time position</Property>
-				<Property Name="Source[1].properties[9].value" Type="Str">Maximized</Property>
-				<Property Name="Source[1].propertiesCount" Type="Int">13</Property>
-				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
-				<Property Name="Source[1].type" Type="Str">VI</Property>
-				<Property Name="Source[2].itemID" Type="Ref"></Property>
-				<Property Name="Source[2].properties[0].type" Type="Str">Show vertical scroll bar</Property>
-				<Property Name="Source[2].properties[0].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[1].type" Type="Str">Show horizontal scroll bar</Property>
-				<Property Name="Source[2].properties[1].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[10].type" Type="Str">Show fp when called</Property>
-				<Property Name="Source[2].properties[10].value" Type="Bool">true</Property>
-				<Property Name="Source[2].properties[11].type" Type="Str">Window behavior</Property>
-				<Property Name="Source[2].properties[11].value" Type="Str">Default</Property>
-				<Property Name="Source[2].properties[12].type" Type="Str">Allow user to close window</Property>
-				<Property Name="Source[2].properties[12].value" Type="Bool">true</Property>
-				<Property Name="Source[2].properties[13].type" Type="Str">Allow debugging</Property>
-				<Property Name="Source[2].properties[13].value" Type="Bool">true</Property>
-				<Property Name="Source[2].properties[2].type" Type="Str">Show menu bar</Property>
-				<Property Name="Source[2].properties[2].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[3].type" Type="Str">Show toolbar</Property>
-				<Property Name="Source[2].properties[3].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[4].type" Type="Str">Remove front panel</Property>
-				<Property Name="Source[2].properties[4].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[5].type" Type="Str">Remove block diagram</Property>
-				<Property Name="Source[2].properties[5].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[6].type" Type="Str">Window has title bar</Property>
-				<Property Name="Source[2].properties[6].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[7].type" Type="Str">Show Abort button</Property>
-				<Property Name="Source[2].properties[7].value" Type="Bool">false</Property>
-				<Property Name="Source[2].properties[8].type" Type="Str">Window run-time position</Property>
-				<Property Name="Source[2].properties[8].value" Type="Str">Maximized</Property>
-				<Property Name="Source[2].properties[9].type" Type="Str">Run when opened</Property>
-				<Property Name="Source[2].properties[9].value" Type="Bool">true</Property>
-				<Property Name="Source[2].propertiesCount" Type="Int">14</Property>
-				<Property Name="Source[2].type" Type="Str">VI</Property>
-				<Property Name="SourceCount" Type="Int">3</Property>
-				<Property Name="TgtF_companyName" Type="Str">Istituto Italiano di Tecnologia</Property>
-				<Property Name="TgtF_fileDescription" Type="Str">Automated PV Measurement</Property>
-				<Property Name="TgtF_internalName" Type="Str">Automated PV Measurement</Property>
-				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2016 Istituto Italiano di Tecnologia</Property>
-				<Property Name="TgtF_productName" Type="Str">Automated PV Measurement</Property>
-				<Property Name="TgtF_targetfileGUID" Type="Str">{DE62D59D-FAD5-4EBB-9D75-1653E941F304}</Property>
-				<Property Name="TgtF_targetfileName" Type="Str">Automated PV Measurement v2.1.8.exe</Property>
-			</Item>
-			<Item Name="Automated Solar Sim" Type="EXE">
-				<Property Name="App_copyErrors" Type="Bool">true</Property>
-				<Property Name="App_INI_aliasGUID" Type="Str">{B8150494-913C-4D51-885F-D3483375CF1B}</Property>
-				<Property Name="App_INI_GUID" Type="Str">{43C1B416-7713-41D8-8AFC-3FBE413564A6}</Property>
-				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
-				<Property Name="Bld_buildCacheID" Type="Str">{8489497E-5325-49D3-9CA3-B3E37E31F930}</Property>
-				<Property Name="Bld_buildSpecName" Type="Str">Automated Solar Sim</Property>
-				<Property Name="Bld_compilerOptLevel" Type="Int">0</Property>
-				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
-				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
-				<Property Name="Bld_localDestDir" Type="Path">../builds/NI_AB_PROJECTNAME/Automated Solar Sim</Property>
-				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
-				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
-				<Property Name="Bld_previewCacheID" Type="Str">{75D126E7-439B-43E0-8F8B-7363456712BB}</Property>
+				<Property Name="Bld_previewCacheID" Type="Str">{626F77E8-C9BA-4F54-9AC5-495892E30056}</Property>
+				<Property Name="Bld_version.build" Type="Int">2</Property>
 				<Property Name="Bld_version.major" Type="Int">1</Property>
-				<Property Name="Destination[0].destName" Type="Str">Automated Solar Sim.exe</Property>
-				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/Automated Solar Sim/Automated Solar Sim.exe</Property>
+				<Property Name="Destination[0].destName" Type="Str">Solar Simulator.exe</Property>
+				<Property Name="Destination[0].path" Type="Path">../builds/Solar Simulator/Solar Simulator.exe</Property>
+				<Property Name="Destination[0].path.type" Type="Str">relativeToProject</Property>
 				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
 				<Property Name="Destination[0].type" Type="Str">App</Property>
 				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
-				<Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/Automated Solar Sim/data</Property>
+				<Property Name="Destination[1].path" Type="Path">../builds/Solar Simulator/data</Property>
+				<Property Name="Destination[1].path.type" Type="Str">relativeToProject</Property>
 				<Property Name="DestinationCount" Type="Int">2</Property>
-				<Property Name="Source[0].itemID" Type="Str">{27926DCE-D054-44FC-A30D-3F41E082CC28}</Property>
-				<Property Name="Source[0].type" Type="Str">Container</Property>
-				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[1].itemID" Type="Ref">/My Computer/main.vi</Property>
-				<Property Name="Source[1].properties[0].type" Type="Str">Show menu bar</Property>
-				<Property Name="Source[1].properties[0].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[1].type" Type="Str">Window has title bar</Property>
-				<Property Name="Source[1].properties[1].value" Type="Bool">false</Property>
-				<Property Name="Source[1].properties[2].type" Type="Str">Show toolbar</Property>
-				<Property Name="Source[1].properties[2].value" Type="Bool">false</Property>
-				<Property Name="Source[1].propertiesCount" Type="Int">3</Property>
-				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
-				<Property Name="Source[1].type" Type="Str">VI</Property>
-				<Property Name="SourceCount" Type="Int">2</Property>
-				<Property Name="TgtF_companyName" Type="Str">Istituto Italiano di Tecnologia</Property>
-				<Property Name="TgtF_fileDescription" Type="Str">Automated Solar Sim</Property>
-				<Property Name="TgtF_internalName" Type="Str">Automated Solar Sim</Property>
-				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2015 Istituto Italiano di Tecnologia</Property>
-				<Property Name="TgtF_productName" Type="Str">Automated Solar Sim</Property>
-				<Property Name="TgtF_targetfileGUID" Type="Str">{A031AABF-B034-46B0-9368-66B5EBBC29FA}</Property>
-				<Property Name="TgtF_targetfileName" Type="Str">Automated Solar Sim.exe</Property>
-			</Item>
-			<Item Name="Automated Solar Sim 1.1" Type="EXE">
-				<Property Name="App_copyErrors" Type="Bool">true</Property>
-				<Property Name="App_INI_aliasGUID" Type="Str">{AD8A8572-438C-46E7-AF4E-B765CAE84F26}</Property>
-				<Property Name="App_INI_GUID" Type="Str">{3CD989B2-CBB8-4682-A7F3-BB5F44EB359E}</Property>
-				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
-				<Property Name="Bld_buildCacheID" Type="Str">{2B3E0964-0582-467E-84D8-5C2A2E7808E9}</Property>
-				<Property Name="Bld_buildSpecName" Type="Str">Automated Solar Sim 1.1</Property>
-				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
-				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
-				<Property Name="Bld_localDestDir" Type="Path">../builds/NI_AB_PROJECTNAME/Automated Solar Sim 1.1</Property>
-				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
-				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
-				<Property Name="Bld_previewCacheID" Type="Str">{A6124AE2-E8E0-488B-9165-52ACF237962F}</Property>
-				<Property Name="Bld_version.major" Type="Int">1</Property>
-				<Property Name="Bld_version.minor" Type="Int">1</Property>
-				<Property Name="Destination[0].destName" Type="Str">Automated Solar Sim 1.1.exe</Property>
-				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/Automated Solar Sim 1.1/Automated Solar Sim 1.1.exe</Property>
-				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
-				<Property Name="Destination[0].type" Type="Str">App</Property>
-				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
-				<Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/Automated Solar Sim 1.1/data</Property>
-				<Property Name="DestinationCount" Type="Int">2</Property>
-				<Property Name="Source[0].itemID" Type="Str">{3BD19F4B-D097-457A-BE5C-8588C86098B4}</Property>
+				<Property Name="Source[0].itemID" Type="Str">{CCD5135F-1991-4246-B4D7-A34E4082DAF9}</Property>
 				<Property Name="Source[0].type" Type="Str">Container</Property>
 				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
 				<Property Name="Source[1].itemID" Type="Ref">/My Computer/main.vi</Property>
 				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
 				<Property Name="Source[1].type" Type="Str">VI</Property>
 				<Property Name="SourceCount" Type="Int">2</Property>
-				<Property Name="TgtF_companyName" Type="Str">Istituto Italiano di Tecnologia</Property>
-				<Property Name="TgtF_fileDescription" Type="Str">Automated Solar Sim 1.1</Property>
-				<Property Name="TgtF_internalName" Type="Str">Automated Solar Sim 1.1</Property>
-				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2015 Istituto Italiano di Tecnologia</Property>
-				<Property Name="TgtF_productName" Type="Str">Automated Solar Sim 1.1</Property>
-				<Property Name="TgtF_targetfileGUID" Type="Str">{C13F47FD-8B8F-4318-8F1F-30A0097665BD}</Property>
-				<Property Name="TgtF_targetfileName" Type="Str">Automated Solar Sim 1.1.exe</Property>
-			</Item>
-			<Item Name="Automated Solar Sim 1.2" Type="EXE">
-				<Property Name="App_copyErrors" Type="Bool">true</Property>
-				<Property Name="App_INI_aliasGUID" Type="Str">{0BBF2728-809A-4410-A39C-B2D61639C448}</Property>
-				<Property Name="App_INI_GUID" Type="Str">{96E6E1A1-18E4-4DAC-9DE0-99AB041BB7B6}</Property>
-				<Property Name="App_serverConfig.httpPort" Type="Int">8002</Property>
-				<Property Name="Bld_buildCacheID" Type="Str">{130B1B2B-278C-4B65-8ADD-AEC071521AFC}</Property>
-				<Property Name="Bld_buildSpecName" Type="Str">Automated Solar Sim 1.2</Property>
-				<Property Name="Bld_compilerOptLevel" Type="Int">0</Property>
-				<Property Name="Bld_excludeLibraryItems" Type="Bool">true</Property>
-				<Property Name="Bld_excludePolymorphicVIs" Type="Bool">true</Property>
-				<Property Name="Bld_localDestDir" Type="Path">../builds/NI_AB_PROJECTNAME/Automated Solar Sim 1.2</Property>
-				<Property Name="Bld_localDestDirType" Type="Str">relativeToCommon</Property>
-				<Property Name="Bld_modifyLibraryFile" Type="Bool">true</Property>
-				<Property Name="Bld_previewCacheID" Type="Str">{EEC1CB5F-9482-4DA1-A2C0-F1A5FB66FE87}</Property>
-				<Property Name="Bld_version.major" Type="Int">1</Property>
-				<Property Name="Bld_version.minor" Type="Int">2</Property>
-				<Property Name="Destination[0].destName" Type="Str">Automated Solar Sim 1.2.exe</Property>
-				<Property Name="Destination[0].path" Type="Path">../builds/NI_AB_PROJECTNAME/Automated Solar Sim 1.2/Automated Solar Sim 1.2.exe</Property>
-				<Property Name="Destination[0].preserveHierarchy" Type="Bool">true</Property>
-				<Property Name="Destination[0].type" Type="Str">App</Property>
-				<Property Name="Destination[1].destName" Type="Str">Support Directory</Property>
-				<Property Name="Destination[1].path" Type="Path">../builds/NI_AB_PROJECTNAME/Automated Solar Sim 1.2/data</Property>
-				<Property Name="DestinationCount" Type="Int">2</Property>
-				<Property Name="Source[0].itemID" Type="Str">{22D43BD4-EF80-4E29-BCD7-9ACF93477A5C}</Property>
-				<Property Name="Source[0].type" Type="Str">Container</Property>
-				<Property Name="Source[1].destinationIndex" Type="Int">0</Property>
-				<Property Name="Source[1].itemID" Type="Ref">/My Computer/main.vi</Property>
-				<Property Name="Source[1].sourceInclusion" Type="Str">TopLevel</Property>
-				<Property Name="Source[1].type" Type="Str">VI</Property>
-				<Property Name="SourceCount" Type="Int">2</Property>
-				<Property Name="TgtF_companyName" Type="Str">Istituto Italiano di Tecnologia</Property>
-				<Property Name="TgtF_fileDescription" Type="Str">Automated Solar Sim 1.2</Property>
-				<Property Name="TgtF_internalName" Type="Str">Automated Solar Sim 1.2</Property>
-				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2015 Istituto Italiano di Tecnologia</Property>
-				<Property Name="TgtF_productName" Type="Str">Automated Solar Sim 1.2</Property>
-				<Property Name="TgtF_targetfileGUID" Type="Str">{27375F8B-DEFB-4A7C-A3E7-7BF242E4EC68}</Property>
-				<Property Name="TgtF_targetfileName" Type="Str">Automated Solar Sim 1.2.exe</Property>
+				<Property Name="TgtF_companyName" Type="Str">Oxford University Department Of Physics</Property>
+				<Property Name="TgtF_fileDescription" Type="Str">Solar Simulator</Property>
+				<Property Name="TgtF_internalName" Type="Str">Solar Simulator</Property>
+				<Property Name="TgtF_legalCopyright" Type="Str">Copyright © 2018 Oxford University Department Of Physics</Property>
+				<Property Name="TgtF_productName" Type="Str">Solar Simulator</Property>
+				<Property Name="TgtF_targetfileGUID" Type="Str">{E34DB7B5-90B2-4092-B08B-5D10681CB8E1}</Property>
+				<Property Name="TgtF_targetfileName" Type="Str">Solar Simulator.exe</Property>
 			</Item>
 		</Item>
 	</Item>
