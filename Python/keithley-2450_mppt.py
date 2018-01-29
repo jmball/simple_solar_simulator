@@ -50,12 +50,17 @@ args = parser.parse_args()
 folderpath = args.folder_path
 filename = args.file_name
 V_start = args.V_start
-A = args.A
 nplc = args.nplc
 t_settling = args.t_settling
 t_track = args.t_track
+A = args.A
 suns = args.num_of_suns
-V_range = np.absolute(V_start)
+
+# Set V_range. Allow values > 2V for tandems with V_mp > 2
+if np.absolute(V_start) > 2:
+    V_range = np.absolute(V_start)
+else:
+    V_range = 2
 
 # Set current measurement range to 10 times SQ limit for 0.5 eV
 # bandgap for the given area
@@ -200,7 +205,7 @@ def track_max_power(V_start, t_track):
         Ps.append(data[1] * data[2])
         PCEs.append(np.absolute(data[1] * data[2] * 1000 / (suns * A)))
         V += 0.02
-
+    
     # Track the maximum point using method of steepest descent
     i = len(Vs) - 1
     while time.time() - t_start < t_track + 3:

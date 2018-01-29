@@ -96,11 +96,15 @@ t_stabilisation = args.t_stabilisation
 stab_mode = args.stabilisation_mode
 stab_level = args.stabilisation_level
 condition = args.condition
+condition = condition.lower()
 dark_stab = args.dark_stabilisation
 A = args.A
 suns = args.suns
 points = int(round(1 + (np.absolute(V_start - V_stop) / V_step)))
 V_range = np.max([np.absolute(V_start), np.absolute(V_stop)])
+
+# Calculate total measurement time + 3 ms per point 
+t_exp = 2 * points * (t_meas + nplc * 0.02 + 0.003)
 
 # Set current measurement range to 10 times SQ limit for 0.5 eV
 # bandgap for the given area
@@ -278,8 +282,8 @@ if stab_data is not None:
         comments='')
 
 # sleep before reading buffer
-time.sleep(2)
-    
+time.sleep(t_exp)
+
 # Read J-V data from buffer
 iv_data = keithley2450.query(
     ':TRAC:DATA? 1, {}, "defbuffer1", REL, SOUR, READ'.format(2 * points - 1))
@@ -323,8 +327,8 @@ p_HL = v_HL * j_HL
 p_LH = v_LH * j_LH
 dpdv_HL = np.gradient(p_HL, dv_HL)
 dpdv_LH = np.gradient(p_LH, dv_LH)
-f_jv_HL = sp.interpolate.interp1d(v_HL, j_HL, 'cubic')
-f_jv_LH = sp.interpolate.interp1d(v_LH, j_LH, 'cubic')
+f_jv_HL = sp.interpolate.interp1d(v_HL, j_HL, 'linear')
+f_jv_LH = sp.interpolate.interp1d(v_LH, j_LH, 'linear')
 f_vj_HL = sp.interpolate.interp1d(j_HL, v_HL, 'linear')
 f_vj_LH = sp.interpolate.interp1d(j_LH, v_LH, 'linear')
 f_dpdv_HL = sp.interpolate.interp1d(dpdv_HL, v_HL)
@@ -335,10 +339,22 @@ jsc_HL = f_jv_HL(0)
 jsc_LH = f_jv_LH(0)
 voc_HL = f_vj_HL(0)
 voc_LH = f_vj_LH(0)
-vmp_HL = f_dpdv_HL(0)
-vmp_LH = f_dpdv_LH(0)
-jmp_HL = f_jv_HL(vmp_HL)
-jmp_LH = f_jv_LH(vmp_LH)
+try:
+    vmp_HL = f_dpdv_HL(0)
+except ValueError:
+    vmp_HL = 0
+try:
+    vmp_LH = f_dpdv_LH(0)
+except ValueError:
+    vmp_LH = 0
+try:
+    jmp_HL = f_jv_HL(vmp_HL)
+except ValueError:
+    jmp_HL = 0
+try:
+    jmp_LH = f_jv_LH(vmp_LH)
+except:
+    jmp_LH = 0
 pmax_HL = vmp_HL * jmp_HL
 pmax_LH = vmp_LH * jmp_LH
 ff_HL = pmax_HL / (voc_HL * jsc_HL)

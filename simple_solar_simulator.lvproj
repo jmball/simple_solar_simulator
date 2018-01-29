@@ -36,6 +36,7 @@
 		<Item Name="jt_data_to_plot.vi" Type="VI" URL="../SubVIs/jt_data_to_plot.vi"/>
 		<Item Name="jt_keithley-2400_python.vi" Type="VI" URL="../SubVIs/jt_keithley-2400_python.vi"/>
 		<Item Name="jt_keithley-2450_python.vi" Type="VI" URL="../SubVIs/jt_keithley-2450_python.vi"/>
+		<Item Name="jv_data_to_plot.vi" Type="VI" URL="../SubVIs/jv_data_to_plot.vi"/>
 		<Item Name="jv_keithley-2400.vi" Type="VI" URL="../SubVIs/jv_keithley-2400.vi"/>
 		<Item Name="jv_keithley-2450_python.vi" Type="VI" URL="../SubVIs/jv_keithley-2450_python.vi"/>
 		<Item Name="Keithley 24XX.lvlib" Type="Library" URL="/&lt;instrlib&gt;/Keithley 24XX/Keithley 24XX.lvlib"/>
@@ -74,7 +75,6 @@
 		<Item Name="upload_details_from_spreadsheet.vi" Type="VI" URL="../SubVIs/upload_details_from_spreadsheet.vi"/>
 		<Item Name="Dependencies" Type="Dependencies">
 			<Item Name="instr.lib" Type="Folder">
-				<Item Name="Keithley 2450.lvlib" Type="Library" URL="/&lt;instrlib&gt;/Keithley 2450/Keithley 2450.lvlib"/>
 				<Item Name="QuickMux Error Handler.vi" Type="VI" URL="/&lt;instrlib&gt;/QuickMux/QuickMux Error Handler.vi"/>
 				<Item Name="QuickMux.lvlib" Type="Library" URL="/&lt;instrlib&gt;/QuickMux/QuickMux.lvlib"/>
 			</Item>
@@ -158,6 +158,7 @@
 			</Item>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
 			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files (x86)/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
+			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="Automated PV Measurement" Type="EXE">

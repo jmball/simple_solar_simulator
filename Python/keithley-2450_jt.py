@@ -71,6 +71,7 @@ inverted = args.inverted
 t_settling = args.t_settling
 nplc = args.nplc
 condition = args.condition
+condition = condition.lower()
 suns = args.num_of_suns
 A = args.A
 points = int(round(1 + (np.absolute(V_start - V_stop) / V_step)))
@@ -79,12 +80,12 @@ V_range = np.max([np.absolute(V_start), np.absolute(V_stop)])
 # Make voltage array
 V_arr = np.linspace(V_start, V_stop, points)
 if dual:
-    V_arr_rev = np.flip(V_arr)
-    V_arr = np.concatenate(V_arr, V_arr_rev)
+    V_arr_rev = np.flip(V_arr, axis=0)
+    V_arr = np.concatenate((V_arr, V_arr_rev))
 
 # Set current measurement range to 10 times SQ limit for 0.5 eV
 # bandgap for the given area
-I_range = 10 * 0.065 * A
+I_range = 100 * 0.065 * A
 
 # Assign the VISA resource to a variable and reset Keithley 2450
 rm = visa.ResourceManager()
@@ -211,13 +212,15 @@ keithley2450.write(':TRAC:CLE "defbuffer1"')
 # Convert to numpy array
 jt_data_arr = np.array(jt_data).T
 
+half_len = int(round((len(jt_data_arr[:,0]) / 2)))
+
 # Split scan directions
 if V_start < V_stop:
-    jt_data_LH = jt_data_arr[:points, :]
-    jt_data_HL = jt_data_arr[points - 1:, :]
+    jt_data_LH = jt_data_arr[:half_len, :]
+    jt_data_HL = jt_data_arr[half_len - 1:, :]
 else:
-    jt_data_HL = jt_data_arr[:points, :]
-    jt_data_LH = jt_data_arr[points - 1:, :]
+    jt_data_HL = jt_data_arr[:half_len, :]
+    jt_data_LH = jt_data_arr[half_len - 1:, :]
 
 # Format and save the results
 np.savetxt(

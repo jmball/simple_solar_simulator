@@ -71,6 +71,7 @@ inverted = args.inverted
 t_settling = args.t_settling
 nplc = args.nplc
 condition = args.condition
+condition = condition.lower()
 suns = args.num_of_suns
 A = args.A
 points = int(round(1 + (np.absolute(V_start - V_stop) / V_step)))
