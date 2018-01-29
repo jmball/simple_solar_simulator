@@ -78,6 +78,13 @@
 				<Item Name="QuickMux Error Handler.vi" Type="VI" URL="/&lt;instrlib&gt;/QuickMux/QuickMux Error Handler.vi"/>
 				<Item Name="QuickMux.lvlib" Type="Library" URL="/&lt;instrlib&gt;/QuickMux/QuickMux.lvlib"/>
 			</Item>
+			<Item Name="user.lib" Type="Folder">
+				<Item Name="Current VIs Parent Directory__ogtk.vi" Type="VI" URL="/&lt;userlib&gt;/_OpenG.lib/file/file.llb/Current VIs Parent Directory__ogtk.vi"/>
+				<Item Name="Current VIs Parents Ref__ogtk.vi" Type="VI" URL="/&lt;userlib&gt;/_OpenG.lib/appcontrol/appcontrol.llb/Current VIs Parents Ref__ogtk.vi"/>
+				<Item Name="Strip Path - Arrays__ogtk.vi" Type="VI" URL="/&lt;userlib&gt;/_OpenG.lib/file/file.llb/Strip Path - Arrays__ogtk.vi"/>
+				<Item Name="Strip Path - Traditional__ogtk.vi" Type="VI" URL="/&lt;userlib&gt;/_OpenG.lib/file/file.llb/Strip Path - Traditional__ogtk.vi"/>
+				<Item Name="Strip Path__ogtk.vi" Type="VI" URL="/&lt;userlib&gt;/_OpenG.lib/file/file.llb/Strip Path__ogtk.vi"/>
+			</Item>
 			<Item Name="vi.lib" Type="Folder">
 				<Item Name="BuildHelpPath.vi" Type="VI" URL="/&lt;vilib&gt;/Utility/error.llb/BuildHelpPath.vi"/>
 				<Item Name="Check Color Table Size.vi" Type="VI" URL="/&lt;vilib&gt;/picture/jpeg.llb/Check Color Table Size.vi"/>
@@ -158,7 +165,6 @@
 			</Item>
 			<Item Name="lvanlys.dll" Type="Document" URL="/&lt;resource&gt;/lvanlys.dll"/>
 			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files (x86)/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
-			<Item Name="QuickMuxAMD64.dll" Type="Document" URL="/C/Program Files/Bitwise Systems/QuickMux/Drivers/v1.0.0/amd64/QuickMuxAMD64.dll"/>
 		</Item>
 		<Item Name="Build Specifications" Type="Build">
 			<Item Name="Automated PV Measurement" Type="EXE">
