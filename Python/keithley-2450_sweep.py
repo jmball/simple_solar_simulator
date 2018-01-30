@@ -335,10 +335,22 @@ f_dpdv_HL = sp.interpolate.interp1d(dpdv_HL, v_HL)
 f_dpdv_LH = sp.interpolate.interp1d(dpdv_LH, v_LH)
 rate_HL = dv_HL / dt_HL
 rate_LH = dv_LH / dt_LH
-jsc_HL = f_jv_HL(0)
-jsc_LH = f_jv_LH(0)
-voc_HL = f_vj_HL(0)
-voc_LH = f_vj_LH(0)
+try:
+    jsc_HL = f_jv_HL(0)
+except ValueError:
+    jsc_HL = 0
+try:
+    jsc_LH = f_jv_LH(0)
+except ValueError:
+    jsc_LH = 0
+try:
+    voc_HL = f_vj_HL(0)
+except ValueError:
+    voc_HL = 0
+try:
+    voc_LH = f_vj_LH(0)
+except ValueError:
+    voc_LH = 0
 try:
     vmp_HL = f_dpdv_HL(0)
 except ValueError:
