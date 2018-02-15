@@ -55,6 +55,7 @@ keithley2450.write(':SOUR:VOLT:READ:BACK ON')
 
 # Enable voltage source autoranging
 keithley2450.write(':SOUR:VOLT:RANG:AUTO ON')
+keithley2450.write(':SOUR:VOLT:ILIM {}'.format(I_comp))
 
 # Set settling delay for sourcing voltage
 keithley2450.write(':SOUR:VOLT:DEL {}'.format(t_settling))

@@ -3,8 +3,8 @@ import time
 
 import numpy as np
 import scipy as sp
-
 import scipy.interpolate
+
 import visa
 
 # Assign the VISA resource to a variable and reset Keithley 2450
@@ -103,12 +103,14 @@ suns = args.suns
 points = int(round(1 + (np.absolute(V_start - V_stop) / V_step)))
 V_range = np.max([np.absolute(V_start), np.absolute(V_stop)])
 
-# Calculate total measurement time + 3 ms per point 
+# Calculate total measurement time + 3 ms per point
 t_exp = 2 * points * (t_meas + nplc * 0.02 + 0.003)
 
-# Set current measurement range to 10 times SQ limit for 0.5 eV
-# bandgap for the given area
+# Set current measurement range to 10 times SQ limit for 0.5 eV bandgap for the
+# given area if less than 1A
 I_range = 100 * 0.065 * A
+if I_range > 1:
+    I_range = 1
 
 # Turn off output
 keithley2450.write('OUTP OFF')
@@ -178,6 +180,7 @@ def stabilisation(t_stabilisation, stab_mode, stab_level, dark_stab, condition,
         keithley2450.write(':OUTP:SMOD HIMP')
         keithley2450.write(':SOUR:VOLT:READ:BACK ON')
         keithley2450.write(':SOUR:VOLT:RANG {}'.format(V_range))
+        keithley2450.write(':SOUR:VOLT:ILIM {}'.format(I_range))
         keithley2450.write(':SOUR:VOLT:DEL {}'.format(t_meas))
         keithley2450.write(':SENS:FUNC "CURR"')
         keithley2450.write(':SENS:CURR:RANG {}'.format(I_range))
@@ -246,6 +249,7 @@ keithley2450.write(':SOUR:VOLT:READ:BACK ON')
 
 # Set the voltage source range
 keithley2450.write(':SOUR:VOLT:RANG {}'.format(V_range))
+keithley2450.write(':SOUR:VOLT:ILIM {}'.format(I_range))
 
 # Set measurement function to current
 keithley2450.write(':SENS:FUNC "CURR"')
@@ -397,8 +401,8 @@ np.savetxt(
             'scan rate = {} V/s\r\n'
             'area = {} cm^2\r\n'
             'number of suns = {}').format(jsc_LH, voc_LH, ff_LH, pce_LH,
-                                            vmp_LH, jmp_LH, pmax_LH, rate_LH,
-                                            A, suns),
+                                          vmp_LH, jmp_LH, pmax_LH, rate_LH, A,
+                                          suns),
     comments='')
 np.savetxt(
     path_HL,
@@ -418,8 +422,8 @@ np.savetxt(
             'scan rate = {} V/s\r\n'
             'area = {} cm^2\r\n'
             'number of suns = {}').format(jsc_HL, voc_HL, ff_HL, pce_HL,
-                                            vmp_HL, jmp_HL, pmax_HL, rate_HL,
-                                            A, suns),
+                                          vmp_HL, jmp_HL, pmax_HL, rate_HL, A,
+                                          suns),
     comments='')
 
 # Print parameters for log file, grouping first scan direction first

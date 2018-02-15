@@ -65,6 +65,8 @@ else:
 # Set current measurement range to 10 times SQ limit for 0.5 eV
 # bandgap for the given area
 I_range = 100 * 0.065 * A
+if I_range > 1:
+    I_range = 1
 
 # Assign the VISA resource to a variable and reset Keithley 2450
 rm = visa.ResourceManager()
@@ -95,6 +97,7 @@ keithley2450.write(':SOUR:VOLT:READ:BACK ON')
 
 # Set the voltage source range
 keithley2450.write(':SOUR:VOLT:RANG {}'.format(V_range))
+keithley2450.write(':SOUR:VOLT:ILIM {}'.format(I_range))
 
 # Set settling delay for sourcing voltage
 keithley2450.write(':SOUR:VOLT:DEL {}'.format(t_settling))
@@ -205,7 +208,7 @@ def track_max_power(V_start, t_track):
         Ps.append(data[1] * data[2])
         PCEs.append(np.absolute(data[1] * data[2] * 1000 / (suns * A)))
         V += 0.02
-    
+
     # Track the maximum point using method of steepest descent
     i = len(Vs) - 1
     while time.time() - t_start < t_track + 3:

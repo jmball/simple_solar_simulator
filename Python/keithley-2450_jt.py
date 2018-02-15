@@ -86,6 +86,8 @@ if dual:
 # Set current measurement range to 10 times SQ limit for 0.5 eV
 # bandgap for the given area
 I_range = 100 * 0.065 * A
+if I_range > 1:
+    I_range = 1
 
 # Assign the VISA resource to a variable and reset Keithley 2450
 rm = visa.ResourceManager()
@@ -116,6 +118,7 @@ keithley2450.write(':SOUR:VOLT:READ:BACK ON')
 
 # Set the voltage source range
 keithley2450.write(':SOUR:VOLT:RANG {}'.format(V_range))
+keithley2450.write(':SOUR:VOLT:ILIM {}'.format(I_range))
 
 # Set settling delay for sourcing voltage
 keithley2450.write(':SOUR:VOLT:DEL {}'.format(t_settling))
@@ -212,7 +215,7 @@ keithley2450.write(':TRAC:CLE "defbuffer1"')
 # Convert to numpy array
 jt_data_arr = np.array(jt_data).T
 
-half_len = int(round((len(jt_data_arr[:,0]) / 2)))
+half_len = int(round((len(jt_data_arr[:, 0]) / 2)))
 
 # Split scan directions
 if V_start < V_stop:
